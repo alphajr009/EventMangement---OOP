@@ -64,12 +64,25 @@
 		<div class="devide-begin-container">
 			<div class="tabbed-form">
 				<div class="tabbed-header">
-
 					<button class="tab-button active" data-tab="login"
 						onclick="changeTab(this)">Login</button>
 					<button class="tab-button" data-tab="signup"
 						onclick="changeTab(this)">Sign Up</button>
 				</div>
+				<%
+					String errorRegister = (String) request.getAttribute("ErrorRegister");
+					String errorLogin = (String) request.getAttribute("ErrorLogin");
+					String activeTab = (String) request.getAttribute("ActiveTab");
+					if (errorRegister != null && !errorRegister.isEmpty()) {
+				%>
+				    <div class="regError" data-tab=<%= activeTab %>><%= errorRegister %></div>
+				<%
+					} else if(errorLogin != null && !errorLogin.isEmpty()){
+				%>
+					<div class="logError" data-tab=<%= activeTab %>><%= errorLogin %></div>
+				<%
+					}
+				%>
 				<div class="tab-content">
 
 					<!-- Login Form -->
@@ -85,14 +98,14 @@
 									<h2>Welcome Back</h2>
 									<p>We are glad to see you back with us</p>
 								</div>
-								<form>
+								<form action="login" method="post">
 									<div class="form-group">
 										<label for="loginEmail"><b>Email</b></label> <input
-											type="email" id="loginEmail" class="form-control">
+											type="email" id="loginEmail" class="form-control" name="email">
 									</div>
 									<div class="form-group">
 										<label for="loginPassword"><b>Password</b></label> <input
-											type="password" id="loginPassword" class="form-control">
+											type="password" id="loginPassword" class="form-control" name="password">
 									</div>
 
 									<div class="dbc-btn">
@@ -326,6 +339,44 @@
             }
 
             signUpForm.submit(); 
+        });
+        
+        const regErrorMessages = document.querySelectorAll(".regError");
+        regErrorMessages.forEach((errorMessage) => {
+            const tabPanels = document.querySelectorAll(".tab-panel");
+            const tabButtons = document.querySelectorAll(".tab-button");
+
+            tabPanels.forEach((panel) => {
+                panel.classList.remove('active');
+            });
+
+            tabButtons.forEach((button) => {
+                button.classList.remove('active');
+            });
+            
+            const tabName = regErrorMessages.getAttribute("data-tab");
+            document.getElementById(tabName + "-form").classList.add('active');
+            const tabButton = document.querySelector(`[data-tab=${tabName}]`);
+            tabButton.classList.add('active');
+        });
+        
+        const logErrorMessage = document.querySelectorAll(".regError");
+        logErrorMessage.forEach((errorMessage) => {
+            const tabPanels = document.querySelectorAll(".tab-panel");
+            const tabButtons = document.querySelectorAll(".tab-button");
+
+            tabPanels.forEach((panel) => {
+                panel.classList.remove('active');
+            });
+
+            tabButtons.forEach((button) => {
+                button.classList.remove('active');
+            });
+            
+            const tabName = logErrorMessage.getAttribute("data-tab");
+            document.getElementById(tabName + "-form").classList.add('active');
+            const tabButton = document.querySelector(`[data-tab=${tabName}]`);
+            tabButton.classList.add('active');
         });
     });
     

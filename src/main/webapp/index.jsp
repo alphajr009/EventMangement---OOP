@@ -1,5 +1,5 @@
 <%@page import="java.sql.Connection"%>
-<%@page import="com.DB.DBConnect"%>
+<%@page import="com.oop.db.handler.DBConnector"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

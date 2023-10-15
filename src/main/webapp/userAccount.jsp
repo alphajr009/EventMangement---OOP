@@ -50,7 +50,7 @@
 							<li class="nav-item"><a
 								class="nav-link h6 font-wh nav-link-fade-up"
 								href="jsp/common/contact.jsp">Contact Us</a></li>
-							<button class=" btn-nav">
+							<button class=" btn-nav" id="planEventButton">
 								<i class="fas fa-user"></i> &nbsp; Account
 							</button>
 
@@ -62,7 +62,38 @@
 
 		<!-- User Acc Begin -->
 
-
+  <div class="usp">
+        <div class="userprofile_container">
+            <div class="profile_container">
+                <div class="user_box">
+                    <div class="user_image_and_name_wrapper">
+                        <div class="user_image_and_name">
+                            <div class="user_image">
+                                <img src="user_image.png" alt="user" class="user_img">
+                            </div>
+                            <h1 class="user_name">John Doe</h1>
+                        </div>
+                    </div>
+                    <div class="button_wrapper">
+                        <button class="btn btn-person_details" id="personaldetailsBtn">Person Details</button>
+                        <button class="btn btn-security" id="securityBtn">Security</button>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="details_container">
+            <div class="content personal-details" id="personaldetailsContent">
+                <!-- Content for personal details -->
+                <p>Personal details content goes here.</p>
+            </div>
+            <div class="content security" id="securityContent">
+                <!-- Content for security -->
+                <p>Security content goes here.</p>
+            </div>
+          
+        </div>
+    </div>
 
 
 		<div class="devide-begin-footer">
@@ -171,8 +202,12 @@
 
 	</div>
 	<script>
-		
+		document.getElementById('planEventButton').addEventListener('click',
+				function() {
+					window.location.href = 'userAccount.jsp';
+				});
 	</script>
+	 <script src="js/userprofile.js"></script>
 
 </body>
 </html>
