@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.oop.models.User"%>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -10,8 +11,8 @@
 <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-	<% String sessionName = (String) session.getAttribute("sessionName");%>
-	<input type="hidden" name="sessionUsername" id="sessionUsername" value="<%= (sessionName != null) ? sessionName : "" %>">
+	<% User user = (User) session.getAttribute("userSession");%>
+	<input type="hidden" name="sessionUsername" id="sessionUsername" value="<%= (user != null) ? user.getName() : "" %>">
 	<nav class="navbar navbar-expand-lg bgcl sticky-navbar">
 		<div class="container">
 			<div class="logo-container">

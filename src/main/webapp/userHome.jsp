@@ -22,7 +22,7 @@
 <body>
 	<%
 		User user = (User) request.getAttribute("User");
-		if(user.getName() != null && !user.getName().isBlank()){
+		if(user != null && !user.getName().isBlank()){
 			session.setAttribute("userSession", user);
 		}
 	%>
