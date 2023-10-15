@@ -8,6 +8,17 @@
 <%@include file="CSS/allcss.jsp"%>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/devidebegin.css">
 <style>
@@ -60,40 +71,254 @@
 			</nav>
 		</div>
 
+
 		<!-- User Acc Begin -->
 
-  <div class="usp">
-        <div class="userprofile_container">
-            <div class="profile_container">
-                <div class="user_box">
-                    <div class="user_image_and_name_wrapper">
-                        <div class="user_image_and_name">
-                            <div class="user_image">
-                                <img src="user_image.png" alt="user" class="user_img">
-                            </div>
-                            <h1 class="user_name">John Doe</h1>
-                        </div>
-                    </div>
-                    <div class="button_wrapper">
-                        <button class="btn btn-person_details" id="personaldetailsBtn">Person Details</button>
-                        <button class="btn btn-security" id="securityBtn">Security</button>
-                     
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="details_container">
-            <div class="content personal-details" id="personaldetailsContent">
-                <!-- Content for personal details -->
-                <p>Personal details content goes here.</p>
-            </div>
-            <div class="content security" id="securityContent">
-                <!-- Content for security -->
-                <p>Security content goes here.</p>
-            </div>
-          
-        </div>
-    </div>
+		<div class="usp">
+			<div class="userprofile_container">
+				<div class="profile_container">
+					<div class="user_box">
+						<div class="user_image_and_name_wrapper">
+							<div class="user_image_and_name">
+								<div class="user_image">
+									<i class="fas fa-user" style="font-size: 110px;"></i>
+								</div>
+								<h1 class="user_name">John Doe</h1>
+							</div>
+						</div>
+						<div class="button_wrapper">
+							<button class="btn btn-person_details" id="personaldetailsBtn">Person
+								Details</button>
+							<button class="btn btn-security" id="securityBtn">Security</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="details_container">
+				<div class="content personal-details cpd"
+					id="personaldetailsContent">
+					<!-- Content for personal details -->
+
+					<div class="cpd-header">
+						<h4>Personal Details</h4>
+					</div>
+
+					<div class="cpd-content">
+
+						<div class="user-profile-box">
+							<div class="user-profile-box-container">
+								<div class="user-profile-box-container-name">
+									<p class="user-profile-box-container-text">Name</p>
+								</div>
+								<div class="user-p-bc-name-c">
+									<p class="user-profile-bc-fname">Pasindu Randika De Silva</p>
+								</div>
+								<div class="user-pro-bc-edit-popup">
+									<button type="button" class="user-pro-bc-edit-popup"
+										data-toggle="modal" data-target="#exampleModal">Edit</button>
+
+								</div>
+							</div>
+						</div>
+
+						<!-- Modal Edit Name-->
+						<div class="modal fade" id="exampleModal" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Change
+											Name</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+
+										<div class="form-group">
+											<label for="newName">Enter new name:</label> <input
+												type="text" class="form-control" id="newName">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="user-profile-box">
+							<div class="user-profile-box-container">
+								<div class="user-profile-box-container-name">
+									<p class="user-profile-box-container-text">Email</p>
+								</div>
+								<div class="user-p-bc-name-c">
+									<p class="user-profile-bc-fname">pasinndurandikarandika53@gmail.comwef</p>
+								</div>
+								<div class="user-pro-bc-edit-popup">
+									<button type="button" class="user-pro-bc-edit-popup"
+										data-toggle="modal" data-target="#EmailexampleModal">Edit</button>
+
+								</div>
+							</div>
+						</div>
+
+
+
+						<!-- Modal Edit Email-->
+						<div class="modal fade" id=EmailexampleModal tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Change
+											Email</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+
+										<div class="form-group">
+											<label for="newName">Enter new email:</label> <input
+												type="text" class="form-control" id="newName">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="content security" id="securityContent">
+
+
+					<div class="user-p-boxall">
+						<!-- Password Change Box -->
+						<div class="user-p-password-box">
+							<div class="user-psecure-box-container">
+								<p class="user-psecure-box-containerp">Password</p>
+								<div class="user-psecure-bc-passwordbc">
+									<p class="user-psecure-bc-passwordbc-name">Change your
+										password regularly to keep your account secure</p>
+								</div>
+								<div class="userp-secure-btn-container">
+
+
+									<button type="button" class="user-psecure-bc-password-btn"
+										data-toggle="modal" data-target="#showChangePassModal">Change</button>
+
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Modal Edit Password-->
+						<div class="modal fade" id=showChangePassModal tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Change
+											Password</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+
+
+										<div class="form-group">
+											<label for="newName">Current Password:</label> <input type="password"
+												class="form-control" id="newName">
+										</div>
+										<div class="form-group">
+											<label for="newName">New Password:</label> <input type="password"
+												class="form-control" id="newName">
+										</div>
+
+										<div class="form-group">
+											<label for="newName">Confirm Password:</label> <input
+												type="password" class="form-control" id="newName">
+										</div>
+
+
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+						<!-- Active Session Box Container -->
+						<div class="user-p-activesession-box">
+							<div class="user-psecure-box-container">
+								<p class="user-psecure-box-containerp-activesession">Active
+									session</p>
+								<div class="user-psecure-bc-passwordbc">
+									<p class="user-psecure-bc-passwordbc-name">Selecting 'Sign
+										Out' will end your current session and sign you out from all
+										devices.</p>
+								</div>
+								<div class="userp-secure-btn-container">
+									<button class="user-psecure-bc-password-btn" type="button"
+										id="signOutButton">Sign out</button>
+								</div>
+							</div>
+						</div>
+						<!-- Delete Account Box Container -->
+						<div class="user-p-deleteacc-box">
+							<div class="user-psecure-box-container">
+								<p class="user-psecure-box-containerp-deleteacc">Delete
+									Account</p>
+								<div class="user-psecure-bc-passwordbc">
+									<p class="user-psecure-bc-passwordbc-name">This action will
+										permanently remove your account and all associated data,
+										including your personal information and history. This cannot
+										be undone. Please proceed with caution.</p>
+								</div>
+								<div class="userp-secure-btn-container">
+									<button class="user-psecure-bc-password-btn" type="button"
+										id="deleteAccountButton">Delete Account</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+
+
+
+
+			</div>
+		</div>
 
 
 		<div class="devide-begin-footer">
@@ -200,6 +425,7 @@
 		</div>
 
 
+
 	</div>
 	<script>
 		document.getElementById('planEventButton').addEventListener('click',
@@ -207,7 +433,7 @@
 					window.location.href = 'userAccount.jsp';
 				});
 	</script>
-	 <script src="js/userprofile.js"></script>
+	<script src="js/userprofile.js"></script>
 
 </body>
 </html>
