@@ -136,3 +136,16 @@
     width: 60%;
 
 }
+
+.cpd{
+	padding: 10px 20px;
+}
+
+.user-profile-box-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 11px;
+  justify-content: space-between;
+
+}
