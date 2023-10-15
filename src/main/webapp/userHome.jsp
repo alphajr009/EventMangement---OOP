@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="com.oop.models.User"%>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -20,9 +21,9 @@
 </head>
 <body>
 	<%
-		String name = (String) request.getAttribute("Name");
-		if(name != null && !name.isBlank()){
-			session.setAttribute("sessionName", name);
+		User user = (User) request.getAttribute("User");
+		if(user.getName() != null && !user.getName().isBlank()){
+			session.setAttribute("userSession", user);
 		}
 	%>
 

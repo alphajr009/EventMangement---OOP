@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="CSS/devidebegin.css">
 <link rel="stylesheet" href="CSS/useracc.css">
 <style>
-  .error-message {
-    color: red;
-  }
+.error-message {
+	color: red;
+}
 </style>
 
 </head>
@@ -69,20 +69,7 @@
 					<button class="tab-button" data-tab="signup"
 						onclick="changeTab(this)">Sign Up</button>
 				</div>
-				<%
-					String errorRegister = (String) request.getAttribute("ErrorRegister");
-					String errorLogin = (String) request.getAttribute("ErrorLogin");
-					String activeTab = (String) request.getAttribute("ActiveTab");
-					if (errorRegister != null && !errorRegister.isEmpty()) {
-				%>
-				    <div class="regError" data-tab=<%= activeTab %>><%= errorRegister %></div>
-				<%
-					} else if(errorLogin != null && !errorLogin.isEmpty()){
-				%>
-					<div class="logError" data-tab=<%= activeTab %>><%= errorLogin %></div>
-				<%
-					}
-				%>
+
 				<div class="tab-content">
 
 					<!-- Login Form -->
@@ -101,13 +88,26 @@
 								<form action="login" method="post">
 									<div class="form-group">
 										<label for="loginEmail"><b>Email</b></label> <input
-											type="email" id="loginEmail" class="form-control" name="email">
+											type="email" id="loginEmail" class="form-control"
+											name="email">
 									</div>
 									<div class="form-group">
 										<label for="loginPassword"><b>Password</b></label> <input
-											type="password" id="loginPassword" class="form-control" name="password">
+											type="password" id="loginPassword" class="form-control"
+											name="password">
 									</div>
 
+									<div>
+										<%
+											String errorLogin = (String) request.getAttribute("ErrorLogin");
+											String activeTabLogin = (String) request.getAttribute("ActiveTab");
+											if (errorLogin != null && !errorLogin.isEmpty()) {
+										%>
+											<div class="logError" data-tab=<%=activeTabLogin%>><%=errorLogin%></div>
+										<%
+											}
+										%>
+									</div>
 									<div class="dbc-btn">
 										<button class="btn btn-primary">Login</button>
 										<p>
@@ -156,6 +156,17 @@
 											type="password" id="confirmPassword" class="form-control"
 											required="required" name="cpassword">
 										<div id="confirmPasswordError" class="error-message"></div>
+									</div>
+									<div>
+										<%
+											String errorRegister = (String) request.getAttribute("ErrorRegister");
+											String activeTabRegister = (String) request.getAttribute("ActiveTab");
+											if (errorRegister != null && !errorRegister.isEmpty()) {
+										%>
+											<div class="regError" data-tab=<%=activeTabRegister%>><%=errorRegister%></div>
+										<%
+											} 
+										%>
 									</div>
 									<div class="dbc-btn">
 										<button type="submit" class="btn btn-primary">Sign Up</button>

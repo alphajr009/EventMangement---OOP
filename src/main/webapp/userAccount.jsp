@@ -1,5 +1,8 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="com.oop.models.User"%>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +32,8 @@
 
 </head>
 <body>
-
+	<% User user = (User) session.getAttribute("userSession");%>
+	<input type="hidden" name="sessionUsername" id="sessionUsername" value="<%= (user != null) ? user : "" %>">
 	<div class="devide-begin">
 
 		<div>
@@ -83,7 +87,7 @@
 								<div class="user_image">
 									<i class="fas fa-user" style="font-size: 110px;"></i>
 								</div>
-								<h1 class="user_name">John Doe</h1>
+								<h1 class="user_name"><%= user.getName() %></h1>
 							</div>
 						</div>
 						<div class="button_wrapper">
@@ -112,7 +116,7 @@
 									<p class="user-profile-box-container-text">Name</p>
 								</div>
 								<div class="user-p-bc-name-c">
-									<p class="user-profile-bc-fname">Pasindu Randika De Silva</p>
+									<p class="user-profile-bc-fname"><%= user.getName() %></p>
 								</div>
 								<div class="user-pro-bc-edit-popup">
 									<button type="button" class="user-pro-bc-edit-popup"
@@ -159,7 +163,7 @@
 									<p class="user-profile-box-container-text">Email</p>
 								</div>
 								<div class="user-p-bc-name-c">
-									<p class="user-profile-bc-fname">pasinndurandikarandika53@gmail.comwef</p>
+									<p class="user-profile-bc-fname"><%= user.getEmail() %></p>
 								</div>
 								<div class="user-pro-bc-edit-popup">
 									<button type="button" class="user-pro-bc-edit-popup"
@@ -431,6 +435,16 @@
 		document.getElementById('planEventButton').addEventListener('click',
 				function() {
 					window.location.href = 'userAccount.jsp';
+				});
+		
+		document.getElementById('signOutButton').addEventListener('click',
+				function() {
+					<% 
+						if (session != null){
+							session.invalidate();
+						};
+					%>
+					window.location.href = 'index.jsp';
 				});
 	</script>
 	<script src="js/userprofile.js"></script>

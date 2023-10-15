@@ -1,5 +1,6 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="com.oop.db.handler.DBConnector"%>
+<%@page import="com.oop.models.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page session="true" %>
@@ -12,8 +13,8 @@
 <body>
 	<jsp:include page="jsp/common/navbar.jsp" />
 	<jsp:include page="jsp/common/hero.jsp" />
-	<% String sessionName = (String) session.getAttribute("sessionName");%>
-	<input type="hidden" name="sessionUsername" id="sessionUsername" value="<%= (sessionName != null) ? sessionName : "" %>">
+	<% User user = (User) session.getAttribute("userSession");%>
+	<input type="hidden" name="sessionUsername" id="sessionUsername" value="<%= (user != null) ? user.getName() : "" %>">
 
 	<div class=body-container>
 

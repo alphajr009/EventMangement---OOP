@@ -273,3 +273,7 @@ body {
 	margin-top: 20px;
 	border-radius: 20px;
 }
+
+.logError{
+	color: red;
+}

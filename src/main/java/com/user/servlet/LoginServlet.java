@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 		
 		RequestDispatcher dispatcher = null;
 		if (response.getStatus() == true) {
-			request.setAttribute("Name", response.getUser().getName());
+			request.setAttribute("User", response.getUser());
 			dispatcher = request.getRequestDispatcher("/userHome.jsp");
 		} else {
 			request.setAttribute("ErrorLogin", response.getNarration());
