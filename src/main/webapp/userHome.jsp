@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,12 @@
 
 </head>
 <body>
+	<%
+		String name = (String) request.getAttribute("Name");
+		if(name != null && !name.isBlank()){
+			session.setAttribute("sessionName", name);
+		}
+	%>
 
 	<div class="devide-begin">
 
@@ -59,9 +66,6 @@
 				</div>
 			</nav>
 		</div>
-
-
-
 
 		<div class="devide-begin-footer">
 			<!-- Footer Start -->

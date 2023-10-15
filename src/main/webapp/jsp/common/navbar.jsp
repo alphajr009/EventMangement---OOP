@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
+	<% String sessionName = (String) session.getAttribute("sessionName");%>
+	<input type="hidden" name="sessionUsername" id="sessionUsername" value="<%= (sessionName != null) ? sessionName : "" %>">
 	<nav class="navbar navbar-expand-lg bgcl sticky-navbar">
 		<div class="container">
 			<div class="logo-container">
@@ -46,7 +49,13 @@
 	<script>
 		document.getElementById('planEventButton').addEventListener('click',
 				function() {
-					window.location.href = 'devidebegin.jsp';
+					var sessionName = document.getElementById('sessionUsername').value;
+					if(sessionName !== ""){
+						console.log(sessionName);
+						window.location.href = 'userHome.jsp';
+					} else {
+						window.location.href = 'devidebegin.jsp';
+					}
 				});
 	</script>
 </body>
