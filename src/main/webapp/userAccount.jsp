@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="com.oop.models.User"%>
-<%@ page session="true" %>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +22,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/devidebegin.css">
 <link rel="stylesheet" href="CSS/useracc.css">
@@ -33,8 +34,11 @@
 
 </head>
 <body>
-	<% User user = (User) session.getAttribute("userSession");%>
-	<input type="hidden" name="sessionUsername" id="sessionUsername" value="<%= (user != null) ? user : "" %>">
+	<%
+	User user = (User) session.getAttribute("userSession");
+	%>
+	<input type="hidden" name="sessionUsername" id="sessionUsername"
+		value="<%=(user != null) ? user : ""%>">
 	<div class="devide-begin">
 
 		<div>
@@ -88,7 +92,7 @@
 								<div class="user_image">
 									<i class="fas fa-user" style="font-size: 110px;"></i>
 								</div>
-								<h1 class="user_name"><%= user.getName() %></h1>
+								<h1 class="user_name" id="up_name"><%=user.getName()%></h1>
 							</div>
 						</div>
 						<div class="button_wrapper">
@@ -117,7 +121,7 @@
 									<p class="user-profile-box-container-text">Name</p>
 								</div>
 								<div class="user-p-bc-name-c">
-									<p class="user-profile-bc-fname"><%= user.getName() %></p>
+									<p class="user-profile-bc-fname" id="pd_name"><%=user.getName()%></p>
 								</div>
 								<div class="user-pro-bc-edit-popup">
 									<button type="button" class="user-pro-bc-edit-popup"
@@ -145,13 +149,14 @@
 
 										<div class="form-group">
 											<label for="newName">Enter new name:</label> <input
-												type="text" class="form-control" id="newName">
+												type="text" class="form-control" id="newName"
+												value="<%=user.getName()%>" name="newName">
 										</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save
+										<button type="button" class="btn btn-primary" id="saveName" data-dismiss="modal">Save
 											changes</button>
 									</div>
 								</div>
@@ -164,7 +169,7 @@
 									<p class="user-profile-box-container-text">Email</p>
 								</div>
 								<div class="user-p-bc-name-c">
-									<p class="user-profile-bc-fname"><%= user.getEmail() %></p>
+									<p class="user-profile-bc-fname" id="pd_email"><%=user.getEmail()%></p>
 								</div>
 								<div class="user-pro-bc-edit-popup">
 									<button type="button" class="user-pro-bc-edit-popup"
@@ -194,13 +199,14 @@
 
 										<div class="form-group">
 											<label for="newName">Enter new email:</label> <input
-												type="text" class="form-control" id="newName">
+												type="email" class="form-control" id="newEmail"
+												value="<%=user.getEmail()%>" name="newEmail">
 										</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save
+											data-dismiss="modal" >Close</button>
+										<button type="button" class="btn btn-primary" id="saveEmail" data-dismiss="modal">Save
 											changes</button>
 									</div>
 								</div>
@@ -250,12 +256,12 @@
 
 
 										<div class="form-group">
-											<label for="newName">Current Password:</label> <input type="password"
-												class="form-control" id="newName">
+											<label for="newName">Current Password:</label> <input
+												type="password" class="form-control" id="newName">
 										</div>
 										<div class="form-group">
-											<label for="newName">New Password:</label> <input type="password"
-												class="form-control" id="newName">
+											<label for="newName">New Password:</label> <input
+												type="password" class="form-control" id="newName">
 										</div>
 
 										<div class="form-group">
@@ -437,15 +443,69 @@
 				function() {
 					window.location.href = 'userAccount.jsp';
 				});
-		
+
 		document.getElementById('signOutButton').addEventListener('click',
 				function() {
-					<% 
-						if (session != null){
-							session.invalidate();
-						};
-					%>
-					window.location.href = 'index.jsp';
+					var xhr = new XMLHttpRequest();
+					xhr.open('POST', 'LogoutServlet', true);
+					xhr.send();
+
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState === 4 && xhr.status === 200) {
+							window.location.href = 'index.jsp';
+						}
+					};
+				});
+		
+		document.getElementById('saveName').addEventListener('click',
+				function() {
+					var newName = document.getElementById('newName').value;
+					var newEmail = document.getElementById('newEmail').value;
+					
+					document.getElementById('up_name').innerText = newName;
+					document.getElementById('pd_email').innerText = newEmail;
+					document.getElementById('pd_name').innerText = newName;
+					
+					$.ajax({
+					    type: 'POST',
+					    url: 'UserEditServlet',
+					    data: {
+					        name: newName,
+					        email: newEmail
+					    }
+					});
+				});
+		
+		document.getElementById('saveEmail').addEventListener('click',
+				function() {
+					var newName = document.getElementById('newName').value;
+					var newEmail = document.getElementById('newEmail').value;
+					
+					document.getElementById('up_name').innerText = newName;
+					document.getElementById('pd_email').innerText = newEmail;
+					document.getElementById('pd_name').innerText = newName;
+					
+					$.ajax({
+					    type: 'POST',
+					    url: 'UserEditServlet',
+					    data: {
+					        name: newName,
+					        email: newEmail
+					    }
+					});
+				});
+		
+		document.getElementById('deleteAccountButton').addEventListener('click',
+				function() {
+					var xhr = new XMLHttpRequest();
+					xhr.open('POST', 'DeleteUserServlet', true);
+					xhr.send();
+
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState === 4 && xhr.status === 200) {
+							window.location.href = 'index.jsp';
+						}
+					};
 				});
 	</script>
 	<script src="js/userprofile.js"></script>

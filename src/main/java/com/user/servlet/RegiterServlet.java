@@ -13,7 +13,7 @@ import com.oop.db.handler.DBConnector;
 import com.oop.db.handler.UserDAOImpl;
 import com.oop.models.AuthResponse;
 import com.oop.models.User;
-import com.oop.services.UserAuthService;
+import com.oop.services.UserService;
 
 @WebServlet("/register")
 public class RegiterServlet extends HttpServlet {
@@ -26,7 +26,7 @@ public class RegiterServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 
-			UserAuthService authService = new UserAuthService();
+			UserService authService = new UserService();
 			AuthResponse response = authService.registerUser(name, email, password);
 			
 			if (response.getStatus() == false) {

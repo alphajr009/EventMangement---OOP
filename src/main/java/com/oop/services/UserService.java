@@ -5,7 +5,7 @@ import com.oop.db.handler.UserDAOImpl;
 import com.oop.models.AuthResponse;
 import com.oop.models.User;
 
-public class UserAuthService {
+public class UserService {
 	
 	private UserDAOImpl userDAOImpl = new UserDAOImpl();
 	private AuthResponse response = new AuthResponse();
@@ -57,5 +57,32 @@ public class UserAuthService {
 		}
 		
 		return response;
+	}
+	
+	public boolean editUserDetials(String name, String email, int userId) {
+		boolean status = false;
+		
+		User user = new User();
+		user.setId(userId);
+		user.setName(name);
+		user.setEmail(email);
+		
+		status = userDAOImpl.editUser(user);
+		
+		return status;
+	}
+	
+	public boolean deleteUser(User user) {
+		boolean status = false;
+		
+		int noOfRows = userDAOImpl.deleteUser(user.getId());
+		
+		if (noOfRows > 0) {
+			status = true;
+		} else {
+			status = false;
+		}
+		
+		return status;
 	}
 }

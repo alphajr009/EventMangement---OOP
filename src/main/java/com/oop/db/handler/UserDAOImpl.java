@@ -16,6 +16,8 @@ public class UserDAOImpl implements UserDAOI{
 	
 	private final String ADD_USER = "insert into users(name,email,password) values(?,?,?)";
 	private final String GET_EXISTING_USER = "select id, name, email, password from users where email = ?";
+	private final String UPDATE_USER = "update users set name = ?, email = ? where id = ?";
+	private final String DELETE_USER = "delete from users where id = ?";
 
 	public UserDAOImpl() {
 		super();
@@ -94,6 +96,45 @@ public class UserDAOImpl implements UserDAOI{
 		}
 		return user;
 	}
+
+	@Override
+	public boolean editUser(User user) {
+		boolean status = false;
+		try {
+			conn = DBConnector.getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(UPDATE_USER);
+			ps.setString(CommonConsts.NUMBER_1, user.getName());
+			ps.setString(CommonConsts.NUMBER_2, user.getEmail());
+			ps.setInt(CommonConsts.NUMBER_3, user.getId());
+			
+			int result = ps.executeUpdate();
+			if(result == 1) {
+				status =true;
+			}
+		} catch(Exception e) {
+			status = false;
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public int deleteUser(int userId) {
+		int noOfRows = 0;
+		try {
+			conn = DBConnector.getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(DELETE_USER);
+			ps.setInt(CommonConsts.NUMBER_1, userId);
+			
+			noOfRows = ps.executeUpdate();
+		} catch (Exception e) {
+			noOfRows = 0;
+			e.printStackTrace();
+		}
+		return noOfRows;
+	}
+	
+	
 	
 }
 

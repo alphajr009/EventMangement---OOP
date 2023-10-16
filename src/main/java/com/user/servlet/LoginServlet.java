@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.oop.models.AuthResponse;
-import com.oop.services.UserAuthService;
+import com.oop.services.UserService;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		UserAuthService authService = new UserAuthService();
+		UserService authService = new UserService();
 		AuthResponse response = authService.loginUser(email, password);
 		
 		RequestDispatcher dispatcher = null;
