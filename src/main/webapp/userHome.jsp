@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="com.oop.models.User"%>
-<%@ page session="true" %>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/devidebegin.css">
+<link rel="stylesheet" href="CSS/userhome.css">
 <style>
 .error-message {
 	color: red;
@@ -21,14 +22,13 @@
 </head>
 <body>
 	<%
-		User user = (User) request.getAttribute("User");
-		if(user != null && !user.getName().isBlank()){
-			session.setAttribute("userSession", user);
-		}
+	User user = (User) request.getAttribute("User");
+	if (user != null && !user.getName().isBlank()) {
+		session.setAttribute("userSession", user);
+	}
 	%>
 
 	<div class="devide-begin">
-
 		<div>
 			<!-- NavBar -->
 			<nav class="navbar navbar-expand-lg bgcl ">
@@ -67,6 +67,43 @@
 				</div>
 			</nav>
 		</div>
+
+
+		<div class="devide-begin-content">
+
+
+			<div class="admin-packages-content">
+				<div class="tab-buttons">
+					<button id="packagesTab" class="active tb-buttons">
+						<b>Events</b>
+					</button>
+					<button id="createTab" class="tb-buttons">
+						<b>Plan New Event</b>
+					</button>
+				</div>
+
+				<div id="packagesContent" class="tab-content active-content">
+					<!-- "Packages" tab -->
+
+					<h3>Events</h3>
+
+				</div>
+
+
+				<!-- "Create New Package" tab -->
+
+				<div id="createContent" class="tab-content">
+
+					<h3>Plan New Event</h3>
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+
 
 		<div class="devide-begin-footer">
 			<!-- Footer Start -->
@@ -178,6 +215,28 @@
 				function() {
 					window.location.href = 'userAccount.jsp';
 				});
+		
+		
+		document.addEventListener("DOMContentLoaded", function () {
+		    const packagesTab = document.getElementById('packagesTab');
+		    const createTab = document.getElementById('createTab');
+		    const packagesContent = document.getElementById('packagesContent');
+		    const createContent = document.getElementById('createContent');
+
+		    packagesTab.addEventListener('click', () => {
+		        packagesTab.classList.add('active');
+		        createTab.classList.remove('active');
+		        packagesContent.classList.add('active-content');
+		        createContent.classList.remove('active-content');
+		    });
+
+		    createTab.addEventListener('click', () => {
+		        createTab.classList.add('active');
+		        packagesTab.classList.remove('active');
+		        createContent.classList.add('active-content');
+		        packagesContent.classList.remove('active-content');
+		    });
+		});
 	</script>
 	<script src="js/userprofile.js"></script>
 

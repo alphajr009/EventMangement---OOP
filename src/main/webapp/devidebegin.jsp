@@ -10,7 +10,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/devidebegin.css">
-<link rel="stylesheet" href="CSS/useracc.css">
+
 <style>
 .error-message {
 	color: red;
@@ -392,6 +392,8 @@
     });
     
 </script>
+
+<script src="js/script.js"></script>
 
 </body>
 </html>
