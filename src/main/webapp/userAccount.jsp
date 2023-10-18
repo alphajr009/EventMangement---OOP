@@ -24,7 +24,7 @@
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="CSS/style.css">
-<link rel="stylesheet" href="CSS/devidebegin.css">
+
 <link rel="stylesheet" href="CSS/useracc.css">
 <style>
 .error-message {
@@ -96,9 +96,9 @@
 							</div>
 						</div>
 						<div class="button_wrapper">
-							<button class="btn btn-person_details" id="personaldetailsBtn">Person
+							<button class="btn4 btn-person_details" id="personaldetailsBtn">Person
 								Details</button>
-							<button class="btn btn-security" id="securityBtn">Security</button>
+							<button class="btn4 btn-security" id="securityBtn">Security</button>
 
 						</div>
 					</div>
