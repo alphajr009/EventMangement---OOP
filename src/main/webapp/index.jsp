@@ -1,7 +1,9 @@
 <%@page import="java.sql.Connection"%>
-<%@page import="com.DB.DBConnect"%>
+<%@page import="com.oop.db.handler.DBConnector"%>
+<%@page import="com.oop.models.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +13,8 @@
 <body>
 	<jsp:include page="jsp/common/navbar.jsp" />
 	<jsp:include page="jsp/common/hero.jsp" />
+	<% User user = (User) session.getAttribute("userSession");%>
+	<input type="hidden" name="sessionUsername" id="sessionUsername" value="<%= (user != null) ? user.getName() : "" %>">
 
 	<div class=body-container>
 
@@ -68,9 +72,8 @@
 
 				</div>
 				<div class="card-btn">
-					<button type="button" class="btn btn-primary" id="planEventButton1">Plan
+						<button type="button" class="btn btn-primary" id="planEventButton1">Plan
 						Your Event</button>
-
 				</div>
 			</div>
 		</div>
@@ -80,7 +83,13 @@
 	<script>
 		document.getElementById('planEventButton1').addEventListener('click',
 				function() {
-					window.location.href = 'devidebegin.jsp';
+					var sessionName = document.getElementById('sessionUsername').value;
+					if(sessionName !== ""){
+						console.log(sessionName);
+						window.location.href = 'userHome.jsp';
+					} else {
+						window.location.href = 'devidebegin.jsp';
+					}
 				});
 	</script>
 </body>

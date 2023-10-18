@@ -19,4 +19,3 @@
 
 <link rel="stylesheet" href="CSS/devidebegin.css">	
 
-<link rel="stylesheet" href="CSS/useracc.css">	
