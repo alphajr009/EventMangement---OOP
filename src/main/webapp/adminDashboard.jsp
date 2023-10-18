@@ -1,5 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.oop.models.Place"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +10,13 @@
 <title>EventEaze</title>
 <%@include file="CSS/allcss.jsp"%>
 <link rel="stylesheet" href="CSS/adminDashboard.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <body>
-
+	<%
+		ArrayList<Place> placesList = (ArrayList<Place>) request.getAttribute("placesList");
+	%>
 	<div class="admin-navbar">
 
 		<div class="admin-navbar-header">
@@ -61,21 +67,56 @@
 			<!-- Places Tab -->
 
 			<div class="tab-content" id="Places">
-
-				<div class="tabplaces">
-					<button class="tablinksplaces activeplace"
-						onclick="openTabPlaces('PlacesHistory')">
-						<b>Places</b>
-					</button>
-					<button class="tablinksplaces"
-						onclick="openTabPlaces('CreatePlace')">
-						<b>Create Place</b>
-					</button>
-				</div>
+				
+					<div class="tabplaces">
+					<form action="PlacesServlet" method="post">
+						<button class="tablinksplaces activeplace" name="action" value="view"
+							onclick="openTabPlaces('PlacesHistory')">
+							<b>Places</b>
+						</button>
+					</form>
+						<button class="tablinksplaces" name="action" value="create"
+							onclick="openTabPlaces('CreatePlace')">
+							<b>Create Place</b>
+						</button>
+					</div>
+				
 
 				<div class="all-tabs-box">
-					<div class="tab-content-places" id="PlacesHistory">Places
-						Table</div>
+					<div class="tab-content-places" id="PlacesHistory">
+						<table border="1">
+								<tr>
+									<th>Id</th>
+									<th>Name</th>
+									<th>Location</th>
+									<th>Type</th>
+									<th>Price</th>
+									<th>Rating</th>
+									<th>Actions</th>
+								</tr>
+							<% 
+								if(placesList != null && !placesList.isEmpty()){
+									for(Place place : placesList){
+							%>
+								<tr>
+									<td><%= place.getId() %></td>
+									<td><%= place.getName() %></td>
+									<td><%= place.getLocation() %></td>
+									<td><%= place.getType() %></td>
+									<td><%= place.getPrice() %></td>
+									<td><%= place.getRating() %></td>
+									<td>Edit/ Delete</td>
+								</tr>
+							<%
+									}
+								} else {
+							%>
+								<p>Empty</p>
+							<%
+								}
+							%>
+						</table>
+					</div>
 
 					<div class="tab-content-places" id="CreatePlace">
 
@@ -83,7 +124,7 @@
 
 						<div class="tab-form-all">
 
-							<form>
+							<form action="PlacesServlet" method="post">
 								<div class="tab-form-field">
 									<label>Image</label> <input type="file" id="myFile"
 										name="filename" class="form-control">
@@ -119,7 +160,7 @@
 										class="form-control" required="required" name="rating">
 								</div>
 
-								<button type="submit" class="btn btn-primary">Create</button>
+								<button type="submit" class="btn btn-primary" id="createPlaces" name="action" value="create">Create</button>
 							</form>
 
 						</div>
@@ -222,9 +263,9 @@
 					<div class="tab-content-cat" id="CatHistory">Catering Table</div>
 
 					<div class="tab-content-cat" id="CreateCat">
-					
-					
-					
+
+
+
 						<h5>Create New Catering Service</h5>
 
 						<div class="tab-form-all">
@@ -270,8 +311,8 @@
 							</form>
 
 						</div>
-					
-					
+
+
 					</div>
 				</div>
 
@@ -280,7 +321,6 @@
 
 
 	</div>
-
 	<script src="js/adminDashboard.js"></script>
 </body>
 </html>
