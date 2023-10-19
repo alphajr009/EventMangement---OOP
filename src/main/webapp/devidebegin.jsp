@@ -10,11 +10,11 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/devidebegin.css">
-<link rel="stylesheet" href="CSS/useracc.css">
+
 <style>
-  .error-message {
-    color: red;
-  }
+.error-message {
+	color: red;
+}
 </style>
 
 </head>
@@ -64,12 +64,12 @@
 		<div class="devide-begin-container">
 			<div class="tabbed-form">
 				<div class="tabbed-header">
-
 					<button class="tab-button active" data-tab="login"
 						onclick="changeTab(this)">Login</button>
 					<button class="tab-button" data-tab="signup"
 						onclick="changeTab(this)">Sign Up</button>
 				</div>
+
 				<div class="tab-content">
 
 					<!-- Login Form -->
@@ -85,16 +85,29 @@
 									<h2>Welcome Back</h2>
 									<p>We are glad to see you back with us</p>
 								</div>
-								<form>
+								<form action="login" method="post">
 									<div class="form-group">
 										<label for="loginEmail"><b>Email</b></label> <input
-											type="email" id="loginEmail" class="form-control">
+											type="email" id="loginEmail" class="form-control"
+											name="email">
 									</div>
 									<div class="form-group">
 										<label for="loginPassword"><b>Password</b></label> <input
-											type="password" id="loginPassword" class="form-control">
+											type="password" id="loginPassword" class="form-control"
+											name="password">
 									</div>
 
+									<div>
+										<%
+											String errorLogin = (String) request.getAttribute("ErrorLogin");
+											String activeTabLogin = (String) request.getAttribute("ActiveTab");
+											if (errorLogin != null && !errorLogin.isEmpty()) {
+										%>
+											<div class="logError" data-tab=<%=activeTabLogin%>><%=errorLogin%></div>
+										<%
+											}
+										%>
+									</div>
 									<div class="dbc-btn">
 										<button class="btn btn-primary">Login</button>
 										<p>
@@ -143,6 +156,17 @@
 											type="password" id="confirmPassword" class="form-control"
 											required="required" name="cpassword">
 										<div id="confirmPasswordError" class="error-message"></div>
+									</div>
+									<div>
+										<%
+											String errorRegister = (String) request.getAttribute("ErrorRegister");
+											String activeTabRegister = (String) request.getAttribute("ActiveTab");
+											if (errorRegister != null && !errorRegister.isEmpty()) {
+										%>
+											<div class="regError" data-tab=<%=activeTabRegister%>><%=errorRegister%></div>
+										<%
+											} 
+										%>
 									</div>
 									<div class="dbc-btn">
 										<button type="submit" class="btn btn-primary">Sign Up</button>
@@ -327,9 +351,49 @@
 
             signUpForm.submit(); 
         });
+        
+        const regErrorMessages = document.querySelectorAll(".regError");
+        regErrorMessages.forEach((errorMessage) => {
+            const tabPanels = document.querySelectorAll(".tab-panel");
+            const tabButtons = document.querySelectorAll(".tab-button");
+
+            tabPanels.forEach((panel) => {
+                panel.classList.remove('active');
+            });
+
+            tabButtons.forEach((button) => {
+                button.classList.remove('active');
+            });
+            
+            const tabName = regErrorMessages.getAttribute("data-tab");
+            document.getElementById(tabName + "-form").classList.add('active');
+            const tabButton = document.querySelector(`[data-tab=${tabName}]`);
+            tabButton.classList.add('active');
+        });
+        
+        const logErrorMessage = document.querySelectorAll(".regError");
+        logErrorMessage.forEach((errorMessage) => {
+            const tabPanels = document.querySelectorAll(".tab-panel");
+            const tabButtons = document.querySelectorAll(".tab-button");
+
+            tabPanels.forEach((panel) => {
+                panel.classList.remove('active');
+            });
+
+            tabButtons.forEach((button) => {
+                button.classList.remove('active');
+            });
+            
+            const tabName = logErrorMessage.getAttribute("data-tab");
+            document.getElementById(tabName + "-form").classList.add('active');
+            const tabButton = document.querySelector(`[data-tab=${tabName}]`);
+            tabButton.classList.add('active');
+        });
     });
     
 </script>
+
+<script src="js/script.js"></script>
 
 </body>
 </html>

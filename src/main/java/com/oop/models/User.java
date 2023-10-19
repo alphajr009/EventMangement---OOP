@@ -1,4 +1,4 @@
-package com.entity;
+package com.oop.models;
 
 public class User {
 	

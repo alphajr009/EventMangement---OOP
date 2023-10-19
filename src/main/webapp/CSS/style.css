@@ -1,7 +1,7 @@
 :root {
 	--primary-color: #36a5ff;
 	--secondary-color: #6C757D;
-	--background-color: #F8F9FA;
+	--background-color: #f6f6f6;
 }
 
 
@@ -273,3 +273,9 @@ body {
 	margin-top: 20px;
 	border-radius: 20px;
 }
+
+.logError{
+	color: red;
+}
+
+

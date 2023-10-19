@@ -1,0 +1,9 @@
+# Ignore build/classes/com/oop/
+build/classes/com/oop/
+
+# Ignore build/classes/com/user/servlet/LoginServlet.class
+build/classes/com/user/servlet/LoginServlet.class
+
+# Ignore .classpath
+.classpath
+
