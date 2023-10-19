@@ -23,6 +23,13 @@ personaldetailsBtn.addEventListener("click", () => {
 });
 
 securityBtn.addEventListener("click", () => {
+    personaldetailsContent.style.display = "none";
+    securityContent.style.display = "block";
+});
+
+helpBtn.addEventListener("click", () => {
+    personaldetailsContent.style.display = "none";
+    securityContent.style.display = "none";
     removeActiveStyling(); 
     securityBtn.style.backgroundColor = "#0089f7"; 
     securityBtn.style.color = "white"; 

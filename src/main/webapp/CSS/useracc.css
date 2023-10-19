@@ -124,9 +124,13 @@
 }
 
 .btn {
-	color: #686868;
+	color: #fff;
 }
 
+
+.btn4 {
+	color: #686868;
+}
 
 .details_container {
 	display: flex;
@@ -340,5 +344,3 @@
 .user-psecure-bc-password-btn:hover {
 	background-color: #0089f7;
 }
-
-

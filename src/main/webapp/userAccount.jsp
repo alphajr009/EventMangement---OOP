@@ -1,4 +1,3 @@
-<%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="com.oop.models.User"%>
@@ -24,7 +23,7 @@
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="CSS/style.css">
-<link rel="stylesheet" href="CSS/devidebegin.css">
+
 <link rel="stylesheet" href="CSS/useracc.css">
 <style>
 .error-message {
@@ -96,9 +95,9 @@
 							</div>
 						</div>
 						<div class="button_wrapper">
-							<button class="btn btn-person_details" id="personaldetailsBtn">Person
+							<button class="btn4 btn-person_details" id="personaldetailsBtn">Person
 								Details</button>
-							<button class="btn btn-security" id="securityBtn">Security</button>
+							<button class="btn4 btn-security" id="securityBtn">Security</button>
 
 						</div>
 					</div>
@@ -156,8 +155,8 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary" id="saveName" data-dismiss="modal">Save
-											changes</button>
+										<button type="button" class="btn btn-primary" id="saveName"
+											data-dismiss="modal">Save changes</button>
 									</div>
 								</div>
 							</div>
@@ -205,9 +204,9 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal" >Close</button>
-										<button type="button" class="btn btn-primary" id="saveEmail" data-dismiss="modal">Save
-											changes</button>
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary" id="saveEmail"
+											data-dismiss="modal">Save changes</button>
 									</div>
 								</div>
 							</div>
@@ -456,47 +455,47 @@
 						}
 					};
 				});
-		
+
 		document.getElementById('saveName').addEventListener('click',
 				function() {
 					var newName = document.getElementById('newName').value;
 					var newEmail = document.getElementById('newEmail').value;
-					
+
 					document.getElementById('up_name').innerText = newName;
 					document.getElementById('pd_email').innerText = newEmail;
 					document.getElementById('pd_name').innerText = newName;
-					
+
 					$.ajax({
-					    type: 'POST',
-					    url: 'UserEditServlet',
-					    data: {
-					        name: newName,
-					        email: newEmail
-					    }
+						type : 'POST',
+						url : 'UserEditServlet',
+						data : {
+							name : newName,
+							email : newEmail
+						}
 					});
 				});
-		
+
 		document.getElementById('saveEmail').addEventListener('click',
 				function() {
 					var newName = document.getElementById('newName').value;
 					var newEmail = document.getElementById('newEmail').value;
-					
+
 					document.getElementById('up_name').innerText = newName;
 					document.getElementById('pd_email').innerText = newEmail;
 					document.getElementById('pd_name').innerText = newName;
-					
+
 					$.ajax({
-					    type: 'POST',
-					    url: 'UserEditServlet',
-					    data: {
-					        name: newName,
-					        email: newEmail
-					    }
+						type : 'POST',
+						url : 'UserEditServlet',
+						data : {
+							name : newName,
+							email : newEmail
+						}
 					});
 				});
-		
-		document.getElementById('deleteAccountButton').addEventListener('click',
-				function() {
+
+		document.getElementById('deleteAccountButton').addEventListener(
+				'click', function() {
 					var xhr = new XMLHttpRequest();
 					xhr.open('POST', 'DeleteUserServlet', true);
 					xhr.send();

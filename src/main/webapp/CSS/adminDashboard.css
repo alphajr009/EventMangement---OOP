@@ -1,0 +1,298 @@
+body {
+	margin: 0;
+}
+
+
+/* Style for tabs */
+.tab {
+	display: flex;
+	justify-content: center;
+	background-color: #36a5ff;
+	padding: 10px;
+
+}
+
+.tab button {
+	background-color: #36a5ff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	margin: 5px;
+	border-radius: 8px;
+}
+
+.tab button:hover {
+	background-color: #4cb7ff;
+}
+
+.tab button.active {
+	background-color: #4cb7ff;
+}
+
+/* Style for tab content */
+.tab-content {
+	display: none;
+	padding: 20px;
+}
+
+.tab-content h2 {
+	color: #333;
+}
+
+.tab-content p {
+	color: #777;
+}
+
+
+.admin-navbar {
+	display: flex;
+	flex-direction: column;
+}
+
+
+.row {
+	padding: 10px 20px;
+
+}
+
+.mt-17 {
+	margin-left: 17%;
+}
+
+
+.dash-text {
+	margin-left: 33%;
+}
+
+.dash-text h1 {
+	margin: 0;
+	font-size: 29px;
+}
+
+
+
+
+.tabplaces {
+	display: flex;
+	justify-content: center;
+	background-color: #36a5ff;
+	padding: 10px;
+	width: 25%;
+	margin-left: 37%;
+	border-radius: 12px;
+}
+
+.tabplaces button {
+	background-color: #36a5ff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	margin: 5px;
+	border-radius: 8px;
+}
+
+.tabplaces button:hover {
+	background-color: #4cb7ff;
+}
+
+.tabplaces button.activeplace {
+	background-color: #4cb7ff;
+}
+
+
+
+
+.tabdeco {
+	display: flex;
+	justify-content: center;
+	background-color: #36a5ff;
+	padding: 10px;
+	width: 25%;
+	margin-left: 37%;
+	border-radius: 12px;
+}
+
+.tabdeco button {
+	background-color: #36a5ff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	margin: 5px;
+	border-radius: 8px;
+}
+
+.tabdeco button:hover {
+	background-color: #4cb7ff;
+}
+
+.tabdeco button.activedeco {
+	background-color: #4cb7ff;
+}
+
+
+
+
+
+.tabcat {
+	display: flex;
+	justify-content: center;
+	background-color: #36a5ff;
+	padding: 10px;
+	width: 25%;
+	margin-left: 37%;
+	border-radius: 12px;
+}
+
+.tabcat button {
+	background-color: #36a5ff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	margin: 5px;
+	border-radius: 8px;
+}
+
+.tabcat button:hover {
+	background-color: #4cb7ff;
+}
+
+.tabcat button.activecat {
+	background-color: #4cb7ff;
+}
+
+
+
+.all-tabs-box {
+	width: 90%;
+	border-radius: 12px;
+	background-color: white;
+	border: 1px solid rgba(0, 0, 0, .125);
+	margin-left: 5.5%;
+	margin-top: 2%;
+	padding: 20px 40px;
+
+}
+
+.all-tabs-box h5 {
+	margin-bottom: 35px;
+}
+
+
+.tab-form-field {
+	margin-bottom: 30px;
+}
+
+.tab-form-field label {
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.tab-form-all button {
+    margin-left: 40%;
+    width: 20%;
+}
+
+
+/* Style for the table */
+.styled-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 10px;
+    text-align: left;
+}
+
+
+.styled-table thead {
+    background-color: #36a5ff;
+    color: #fff;
+}
+
+.styled-table th {
+    font-weight: bold;
+}
+
+.styled-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #e0e0e0;
+}
+
+.styled-table td:last-child,
+.styled-table th:last-child {
+    text-align: center;
+}
+
+
+/* Edit and Delete button styles */
+.edit-button,
+.delete-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #36a5ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    background-color: #0077d3; 
+}
+
+
+.delete-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: rgb(255, 0, 0);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: #ff0000; 
+}
+
+
+.all-tabs-box h5{
+	margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

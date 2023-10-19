@@ -16,4 +16,6 @@ public class CommonConsts {
 	public static String STATUS_SUCCESS = "Success";
 	public static String STATUS_FAILED = "Failed";
 	public static String LOGIN_ERROR_MSG = "User name or password incorrect";
+	public static String TAG_CREATE = "create";
+	public static String TAG_VIEW = "view";
 }
