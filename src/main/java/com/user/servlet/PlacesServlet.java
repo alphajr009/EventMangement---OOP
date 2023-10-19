@@ -35,8 +35,9 @@ public class PlacesServlet extends HttpServlet {
 	    	placesService.createPlace(name, location, type, Float.parseFloat(price), Integer.parseInt(rating));
 		} else if (tag.equalsIgnoreCase(CommonConsts.TAG_VIEW)) {
 			ArrayList<Place> placesList = placesService.getPlacesList();
-			System.out.println(placesList.size());
 			request.setAttribute("placesList", placesList);
+			request.setAttribute("activeTab", "Places");
+			request.setAttribute("reload", "false");
 		}
 	    
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/adminDashboard.jsp");

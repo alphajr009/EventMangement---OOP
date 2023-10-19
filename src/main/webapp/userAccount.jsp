@@ -432,12 +432,9 @@
 
 			</div>
 			<!-- Footer End -->
-
 		</div>
-
-
-
 	</div>
+	
 	<script>
 		document.getElementById('planEventButton').addEventListener('click',
 				function() {

@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<<<<<<< HEAD
-=======
 <%@page import="com.oop.models.User"%>
 <%@ page session="true"%>
->>>>>>> aade3f7614f18ed40f03f5341433b28ffd1b792d
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +12,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/devidebegin.css">
-<<<<<<< HEAD
-=======
 <link rel="stylesheet" href="CSS/userhome.css">
->>>>>>> aade3f7614f18ed40f03f5341433b28ffd1b792d
 <style>
 .error-message {
 	color: red;
@@ -27,11 +21,7 @@
 
 </head>
 <body>
-<<<<<<< HEAD
-
 	<div class="devide-begin">
-
-=======
 	<%
 	User user = (User) request.getAttribute("User");
 	if (user != null && !user.getName().isBlank()) {
@@ -40,7 +30,6 @@
 	%>
 
 	<div class="devide-begin">
->>>>>>> aade3f7614f18ed40f03f5341433b28ffd1b792d
 		<div>
 			<!-- NavBar -->
 			<nav class="navbar navbar-expand-lg bgcl ">
@@ -79,43 +68,40 @@
 				</div>
 			</nav>
 		</div>
-
-<<<<<<< HEAD
 		<!-- User Acc Begin -->
 
-  <div class="usp">
-        <div class="userprofile_container">
-            <div class="profile_container">
-                <div class="user_box">
-                    <div class="user_image_and_name_wrapper">
-                        <div class="user_image_and_name">
-                            <div class="user_image">
-                                <img src="user_image.png" alt="user" class="user_img">
-                            </div>
-                            <h1 class="user_name">John Doe</h1>
-                        </div>
-                    </div>
-                    <div class="button_wrapper">
-                        <button class="btn btn-person_details" id="personaldetailsBtn">Person Details</button>
-                        <button class="btn btn-security" id="securityBtn">Security</button>
-                     
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="details_container">
-            <div class="content personal-details" id="personaldetailsContent">
-                <!-- Content for personal details -->
-                <p>Personal details content goes here.</p>
-            </div>
-            <div class="content security" id="securityContent">
-                <!-- Content for security -->
-                <p>Security content goes here.</p>
-            </div>
-          
-        </div>
-    </div>
-=======
+	  <div class="usp">
+	        <div class="userprofile_container">
+	            <div class="profile_container">
+	                <div class="user_box">
+	                    <div class="user_image_and_name_wrapper">
+	                        <div class="user_image_and_name">
+	                            <div class="user_image">
+	                                <img src="user_image.png" alt="user" class="user_img">
+	                            </div>
+	                            <h1 class="user_name">John Doe</h1>
+	                        </div>
+	                    </div>
+	                    <div class="button_wrapper">
+	                        <button class="btn btn-person_details" id="personaldetailsBtn">Person Details</button>
+	                        <button class="btn btn-security" id="securityBtn">Security</button>
+	                     
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="details_container">
+	            <div class="content personal-details" id="personaldetailsContent">
+	                <!-- Content for personal details -->
+	                <p>Personal details content goes here.</p>
+	            </div>
+	            <div class="content security" id="securityContent">
+	                <!-- Content for security -->
+	                <p>Security content goes here.</p>
+	            </div>
+	          
+	        </div>
+	    </div>
 
 		<div class="devide-begin-content">
 
@@ -132,26 +118,16 @@
 
 				<div id="packagesContent" class="tab-content active-content">
 					<!-- "Packages" tab -->
-
 					<h3>Events</h3>
-
 				</div>
-
-
+				
 				<!-- "Create New Package" tab -->
 
 				<div id="createContent" class="tab-content">
-
 					<h3>Plan New Event</h3>
-
 				</div>
 			</div>
-
-
 		</div>
-
-
->>>>>>> aade3f7614f18ed40f03f5341433b28ffd1b792d
 
 
 		<div class="devide-begin-footer">
@@ -264,11 +240,6 @@
 				function() {
 					window.location.href = 'userAccount.jsp';
 				});
-<<<<<<< HEAD
-	</script>
-	 <script src="js/userprofile.js"></script>
-=======
-		
 		
 		document.addEventListener("DOMContentLoaded", function () {
 		    const packagesTab = document.getElementById('packagesTab');
@@ -292,7 +263,6 @@
 		});
 	</script>
 	<script src="js/userprofile.js"></script>
->>>>>>> aade3f7614f18ed40f03f5341433b28ffd1b792d
 
 </body>
 </html>

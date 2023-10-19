@@ -1,5 +1,7 @@
+<%@page import="com.oop.models.Catering"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.oop.models.Place"%>
+<%@page import="com.oop.models.Decorator"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page session="true"%>
@@ -15,8 +17,14 @@
 </head>
 <body>
 	<%
-		ArrayList<Place> placesList = (ArrayList<Place>) request.getAttribute("placesList");
+	ArrayList<Place> placesList = (ArrayList<Place>) request.getAttribute("placesList");
+	ArrayList<Decorator> decoratorList = (ArrayList<Decorator>) request.getAttribute("decoratorList");
+	ArrayList<Catering> cateringList = (ArrayList<Catering>) request.getAttribute("cateringList");
+	String activeTab = (String) request.getAttribute("activeTab");
+	String reload = (String) request.getAttribute("reload");
 	%>
+	<input type="text" id="activeTab" name="activeTab" value=<%= activeTab != null ? activeTab : "Places" %> />
+	<input type="text" id="reload" name="reload" value=<%= reload != null ? reload : "true" %> />
 	<div class="admin-navbar">
 
 		<div class="admin-navbar-header">
@@ -46,20 +54,23 @@
 
 		</div>
 
-
-
-
 		<div class="tab-container">
 			<div class="tab">
-				<button class="tablinks active" onclick="openTab('Places')">
-					<b>Places</b>
-				</button>
-				<button class="tablinks" onclick="openTab('Decorations')">
-					<b>Decorations</b>
-				</button>
-				<button class="tablinks" onclick="openTab('Catering')">
-					<b>Catering</b>
-				</button>
+				<form action="PlacesServlet" method="post">
+					<button class="tablinks active" onclick="openTab('Places')" name="action" value="view" id="places">
+						<b>Places</b>
+					</button>
+				</form>
+				<form action="DecorationsServlet" method="post">
+					<button class="tablinks" onclick="openTab('Decorations')" name="actionDeco" value="view" id="decorations">
+						<b>Decorations</b>
+					</button>
+				</form>
+				<form action="CateringServlet" method="post">
+					<button class="tablinks" onclick="openTab('Catering')" name="actionCatering" value="view" id="catering">
+						<b>Catering</b>
+					</button>
+				</form>
 			</div>
 
 			<br>
@@ -67,53 +78,52 @@
 			<!-- Places Tab -->
 
 			<div class="tab-content" id="Places">
-				
-					<div class="tabplaces">
-					<form action="PlacesServlet" method="post">
-						<button class="tablinksplaces activeplace" name="action" value="view"
-							onclick="openTabPlaces('PlacesHistory')">
-							<b>Places</b>
-						</button>
-					</form>
-						<button class="tablinksplaces" name="action" value="create"
-							onclick="openTabPlaces('CreatePlace')">
-							<b>Create Place</b>
-						</button>
-					</div>
-				
+
+				<div class="tabplaces">
+
+					<button class="tablinksplaces activeplace" onclick="openTabPlaces('PlacesHistory')">
+						<b>Places</b>
+					</button>
+
+					<button class="tablinksplaces" name="action" value="create"
+						onclick="openTabPlaces('CreatePlace')">
+						<b>Create Place</b>
+					</button>
+				</div>
+
 
 				<div class="all-tabs-box">
 					<div class="tab-content-places" id="PlacesHistory">
 						<table border="1">
-								<tr>
-									<th>Id</th>
-									<th>Name</th>
-									<th>Location</th>
-									<th>Type</th>
-									<th>Price</th>
-									<th>Rating</th>
-									<th>Actions</th>
-								</tr>
-							<% 
-								if(placesList != null && !placesList.isEmpty()){
-									for(Place place : placesList){
-							%>
-								<tr>
-									<td><%= place.getId() %></td>
-									<td><%= place.getName() %></td>
-									<td><%= place.getLocation() %></td>
-									<td><%= place.getType() %></td>
-									<td><%= place.getPrice() %></td>
-									<td><%= place.getRating() %></td>
-									<td>Edit/ Delete</td>
-								</tr>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Location</th>
+								<th>Type</th>
+								<th>Price</th>
+								<th>Rating</th>
+								<th>Actions</th>
+							</tr>
 							<%
-									}
-								} else {
+							if (placesList != null && !placesList.isEmpty()) {
+								for (Place place : placesList) {
 							%>
-								<p>Empty</p>
+							<tr>
+								<td><%=place.getId()%></td>
+								<td><%=place.getName()%></td>
+								<td><%=place.getLocation()%></td>
+								<td><%=place.getType()%></td>
+								<td><%=place.getPrice()%></td>
+								<td><%=place.getRating()%></td>
+								<td>Edit/ Delete</td>
+							</tr>
 							<%
-								}
+							}
+							} else {
+							%>
+							<p>Empty</p>
+							<%
+							}
 							%>
 						</table>
 					</div>
@@ -160,7 +170,8 @@
 										class="form-control" required="required" name="rating">
 								</div>
 
-								<button type="submit" class="btn btn-primary" id="createPlaces" name="action" value="create">Create</button>
+								<button type="submit" class="btn btn-primary" id="createPlaces"
+									name="action" value="create">Create</button>
 							</form>
 
 						</div>
@@ -174,8 +185,8 @@
 			<div class="tab-content" id="Decorations">
 
 				<div class="tabdeco">
-					<button class="tablinksdeco activedeco"
-						onclick="openTabDeco('DecoHistory')">
+
+					<button class="tablinksdeco activedeco" onclick="openTabDeco('DecoHistory')">
 						<b>Decoration</b>
 					</button>
 					<button class="tablinksdeco" onclick="openTabDeco('CreateDeco')">
@@ -184,8 +195,40 @@
 				</div>
 
 				<div class=all-tabs-box>
-					<div class="tab-content-deco" id="DecoHistory">Decoration
-						Table</div>
+					<div class="tab-content-deco" id="DecoHistory">
+						<table border="1">
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Location</th>
+								<th>Type</th>
+								<th>Price</th>
+								<th>Rating</th>
+								<th>Actions</th>
+							</tr>
+							<%
+							if (decoratorList != null && !decoratorList.isEmpty()) {
+								for (Decorator decorator : decoratorList) {
+							%>
+							<tr>
+								<td><%=decorator.getId()%></td>
+								<td><%=decorator.getName()%></td>
+								<td><%=decorator.getLocation()%></td>
+								<td><%=decorator.getType()%></td>
+								<td><%=decorator.getPrice()%></td>
+								<td><%=decorator.getRating()%></td>
+								<td>Edit/ Delete</td>
+							</tr>
+							<%
+							}
+							} else {
+							%>
+							<p>Empty</p>
+							<%
+							}
+							%>
+						</table>
+					</div>
 
 					<div class="tab-content-deco" id="CreateDeco">
 
@@ -193,7 +236,7 @@
 
 						<div class="tab-form-all">
 
-							<form>
+							<form action="DecorationsServlet" method="post">
 								<div class="tab-form-field">
 									<label>Image</label> <input type="file" id="myFileDeco"
 										name="filenameDeco" class="form-control">
@@ -230,7 +273,7 @@
 										name="ratingDeco">
 								</div>
 
-								<button type="submit" class="btn btn-primary">Create</button>
+								<button type="submit" class="btn btn-primary" name="actionDeco" value="create">Create</button>
 							</form>
 
 						</div>
@@ -260,7 +303,40 @@
 				</div>
 
 				<div class=all-tabs-box>
-					<div class="tab-content-cat" id="CatHistory">Catering Table</div>
+					<div class="tab-content-cat" id="CatHistory">
+						<table border="1">
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Location</th>
+								<th>Type</th>
+								<th>Price</th>
+								<th>Rating</th>
+								<th>Actions</th>
+							</tr>
+							<%
+							if (cateringList != null && !cateringList.isEmpty()) {
+								for (Catering catering : cateringList) {
+							%>
+							<tr>
+								<td><%=catering.getId()%></td>
+								<td><%=catering.getName()%></td>
+								<td><%=catering.getLocation()%></td>
+								<td><%=catering.getType()%></td>
+								<td><%=catering.getPrice()%></td>
+								<td><%=catering.getRating()%></td>
+								<td>Edit/ Delete</td>
+							</tr>
+							<%
+							}
+							} else {
+							%>
+							<p>Empty</p>
+							<%
+							}
+							%>
+						</table>
+					</div>
 
 					<div class="tab-content-cat" id="CreateCat">
 
@@ -270,24 +346,24 @@
 
 						<div class="tab-form-all">
 
-							<form>
+							<form action="CateringServlet" method="post">
 								<div class="tab-form-field">
 									<label>Image</label> <input type="file" id="myFileCat"
 										name="filenameCat" class="form-control">
 								</div>
 
 								<div class="tab-form-field">
-									<label>Name</label> <input type="text" id="nameDeco"
-										class="form-control" required="required" name="nameCat">
+									<label>Name</label> <input type="text" id="nameCatering"
+										class="form-control" required="required" name="nameCatering">
 								</div>
 
 								<div class="tab-form-field">
-									<label>Location</label> <input type="text" id="locationCat"
-										class="form-control" required="required" name="locationCat">
+									<label>Location</label> <input type="text" id="locationCatering"
+										class="form-control" required="required" name="locationCatering">
 								</div>
 
 								<div class="tab-form-field">
-									<label>Type</label> <select name="typeDeco" id="typeCat"
+									<label>Type</label> <select name="typeCatering" id="typeCatering"
 										class="form-control">
 										<option value="Luxury">Luxury</option>
 										<option value="Premium">Premium</option>
@@ -297,17 +373,17 @@
 								</div>
 
 								<div class="tab-form-field">
-									<label>Price</label> <input type="text" id="priceCat"
-										class="form-control" required="required" name="priceCat">
+									<label>Price</label> <input type="text" id="priceCatering"
+										class="form-control" required="required" name="priceCatering">
 								</div>
 
 								<div class="tab-form-field">
 									<label>Rating(Out of 10)</label> <input type="text"
-										id="ratingCat" class="form-control" required="required"
-										name="ratingCat">
+										id="ratingCatering" class="form-control" required="required"
+										name="ratingCatering">
 								</div>
 
-								<button type="submit" class="btn btn-primary">Create</button>
+								<button type="submit" class="btn btn-primary" name="actionCatering" value="create">Create</button>
 							</form>
 
 						</div>
@@ -322,5 +398,21 @@
 
 	</div>
 	<script src="js/adminDashboard.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+		    const button = document.getElementById('places');
+		    const activeTab = document.getElementById('activeTab').value;
+		    const reload = document.getElementById('reload').value;
+		    
+		    if(button && reload === "true"){
+		    	button.click();
+		    }
+		    
+		    if(activeTab !=null){
+		    	openTab(activeTab)
+		    }
+		    
+		});
+	</script>
 </body>
 </html>
