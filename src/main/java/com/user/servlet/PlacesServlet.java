@@ -38,6 +38,29 @@ public class PlacesServlet extends HttpServlet {
 			request.setAttribute("placesList", placesList);
 			request.setAttribute("activeTab", "Places");
 			request.setAttribute("reload", "false");
+		} else if (tag.equalsIgnoreCase(CommonConsts.TAG_DELETE)) {
+			String placeId = request.getParameter("placeId");
+			boolean status = placesService.removePlace(Integer.parseInt(placeId));
+			if (status == true) {
+				ArrayList<Place> placesList = placesService.getPlacesList();
+				request.setAttribute("placesList", placesList);
+				request.setAttribute("activeTab", "Places");
+				request.setAttribute("reload", "false");
+			}
+		} else if(tag.equalsIgnoreCase(CommonConsts.TAG_EDIT)){
+			String newName = request.getParameter("newNamePlace");
+			String newLocation = request.getParameter("newLocationPlace");
+			String newprice = request.getParameter("newPricePlace");
+			String newRating = request.getParameter("newRatingPlace");
+			String placeId = request.getParameter("placeId");
+			
+			boolean status = placesService.editPlace(newName, newLocation, Float.parseFloat(newprice), Integer.parseInt(newRating), Integer.parseInt(placeId));
+			if (status == true) {
+				ArrayList<Place> placesList = placesService.getPlacesList();
+				request.setAttribute("placesList", placesList);
+				request.setAttribute("activeTab", "Places");
+				request.setAttribute("reload", "false");
+			}
 		}
 	    
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/adminDashboard.jsp");

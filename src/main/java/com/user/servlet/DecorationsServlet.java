@@ -22,6 +22,7 @@ public class DecorationsServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tag = request.getParameter("actionDeco");
+		System.out.println(tag);
 	    
 	    DecorationService decorationService = new DecorationService();
 	    if (tag.equalsIgnoreCase(CommonConsts.TAG_CREATE)) {
@@ -37,6 +38,31 @@ public class DecorationsServlet extends HttpServlet {
 			request.setAttribute("decoratorList", decoratorList);
 			request.setAttribute("activeTab", "Decorations");
 			request.setAttribute("reload", "false");
+		} else if (tag.equalsIgnoreCase(CommonConsts.TAG_EDIT)) {
+			String newName = request.getParameter("newNameDeco");
+			String newLocation = request.getParameter("newLocationDeco");
+			String newprice = request.getParameter("newPriceDeco");
+			String newRating = request.getParameter("newRatingDeco");
+			String placeId = request.getParameter("decoId");
+			
+			boolean status = decorationService.editDecorator(newName, newLocation, Float.parseFloat(newprice), Integer.parseInt(newRating), Integer.parseInt(placeId));
+			
+			if (status = true) {
+				ArrayList<Decorator> decoratorList = decorationService.getAllDecorators();
+				request.setAttribute("decoratorList", decoratorList);
+				request.setAttribute("activeTab", "Decorations");
+				request.setAttribute("reload", "false");
+			}
+		} else if (tag.equalsIgnoreCase(CommonConsts.TAG_DELETE)) {
+			String decoratorId = request.getParameter("decoId");
+			boolean status = decorationService.removeDecorator(Integer.parseInt(decoratorId));
+			
+			if (status == true) {
+				ArrayList<Decorator> decoratorList = decorationService.getAllDecorators();
+				request.setAttribute("decoratorList", decoratorList);
+				request.setAttribute("activeTab", "Decorations");
+				request.setAttribute("reload", "false");
+			}
 		}
 	    
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/adminDashboard.jsp");

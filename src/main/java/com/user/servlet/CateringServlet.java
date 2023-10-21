@@ -33,10 +33,35 @@ public class CateringServlet extends HttpServlet {
 		    
 		    cateringService.createCatering(name, location, type, Float.parseFloat(price), Integer.parseInt(rating));
 		} else if (tag.equalsIgnoreCase(CommonConsts.TAG_VIEW)) {
-			ArrayList<Catering> decoratorList = cateringService.getCateringList();
-			request.setAttribute("cateringList", decoratorList);
+			ArrayList<Catering> cateringList = cateringService.getCateringList();
+			request.setAttribute("cateringList", cateringList);
 			request.setAttribute("activeTab", "Catering");
 			request.setAttribute("reload", "false");
+		} else if (tag.equalsIgnoreCase(CommonConsts.TAG_EDIT)) {
+			String newName = request.getParameter("newNameCater");
+			String newLocation = request.getParameter("newLocationCater");
+			String newprice = request.getParameter("newPriceCater");
+			String newRating = request.getParameter("newRatingCater");
+			String cateringeId = request.getParameter("cateringId");
+			
+			boolean status = cateringService.editCatering(newName, newLocation, Float.parseFloat(newprice), Integer.parseInt(newRating), Integer.parseInt(cateringeId));
+			
+			if (status == true) {
+				ArrayList<Catering> cateringList = cateringService.getCateringList();
+				request.setAttribute("cateringList", cateringList);
+				request.setAttribute("activeTab", "Catering");
+				request.setAttribute("reload", "false");
+			}
+		} else if(tag.equalsIgnoreCase(CommonConsts.TAG_DELETE)) {
+			String cateringId = request.getParameter("cateringId");
+			boolean status = cateringService.removeCatering(Integer.parseInt(cateringId));
+			
+			if (status == true) {
+				ArrayList<Catering> cateringList = cateringService.getCateringList();
+				request.setAttribute("cateringList", cateringList);
+				request.setAttribute("activeTab", "Catering");
+				request.setAttribute("reload", "false");
+			}
 		}
 	    
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/adminDashboard.jsp");

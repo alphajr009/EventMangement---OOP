@@ -32,4 +32,35 @@ public class PlacesService {
 		
 		return placesList;
 	}
+	
+	public boolean removePlace(int placeId) {
+		boolean status = false;
+		
+		int result = placesDAOImpl.deletePlace(placeId);
+		
+		if (result > 0) {
+			status = true;
+		}
+		
+		return status;
+	}
+	
+	public boolean editPlace(String newName, String newLocation, float newPrice, int newRating, int placeId) {
+		boolean status = false;
+		
+		Place place = new Place();
+		place.setId(placeId);
+		place.setName(newName);
+		place.setLocation(newLocation);
+		place.setPrice(newPrice);
+		place.setRating(newRating);
+		
+		int result = placesDAOImpl.updatePlace(place);
+		
+		if (result > 0) {
+			status = true;
+		}
+		
+		return status;
+	}
 }

@@ -14,6 +14,8 @@ public class PlacesDAOImpl implements PlacesDAOI {
 	
 	private final String ADD_PLACE = "insert into places(name, location, type, price, rating) values(?,?,?,?,?)";
 	private final String GET_ALL_PLACES = "select id, name, location, type, price, rating from places";
+	private final String DELETE_PLACE = "delete from places where id = ?";
+	private final String UPDATE_PLACE = "update places set name = ?, location = ?, price = ?, rating = ? where id = ?";
 	
 	@Override
 	public int addNewPlace(Place place) {
@@ -65,6 +67,41 @@ public class PlacesDAOImpl implements PlacesDAOI {
 		return placesList;
 	}
 	
+	@Override
+	public int deletePlace(int placeId) {
+		int result = 0;
+		
+		try {
+			conn = DBConnector.getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(DELETE_PLACE);
+			ps.setInt(CommonConsts.NUMBER_1, placeId);
+			
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
+	@Override
+	public int updatePlace(Place place) {
+		int result = 0;
+		
+		try {
+			conn = DBConnector.getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(UPDATE_PLACE);
+			ps.setString(CommonConsts.NUMBER_1, place.getName());
+			ps.setString(CommonConsts.NUMBER_2, place.getLocation());
+			ps.setFloat(CommonConsts.NUMBER_3, place.getPrice());
+			ps.setInt(CommonConsts.NUMBER_4, place.getRating());
+			ps.setInt(CommonConsts.NUMBER_5, place.getId());
+			
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 }
