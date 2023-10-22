@@ -22,7 +22,6 @@ public class DecorationsServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tag = request.getParameter("actionDeco");
-		System.out.println(tag);
 	    
 	    DecorationService decorationService = new DecorationService();
 	    if (tag.equalsIgnoreCase(CommonConsts.TAG_CREATE)) {

@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oop.consts.CommonConsts;
 import com.oop.models.AuthResponse;
+import com.oop.models.User;
 import com.oop.services.UserService;
 
 @WebServlet("/login")
@@ -24,8 +26,13 @@ public class LoginServlet extends HttpServlet {
 		
 		RequestDispatcher dispatcher = null;
 		if (response.getStatus() == true) {
-			request.setAttribute("User", response.getUser());
-			dispatcher = request.getRequestDispatcher("/userHome.jsp");
+			if (response.getUser().isAdmin() == CommonConsts.NUMBER_1) {
+				request.setAttribute("User", response.getUser());
+				dispatcher = request.getRequestDispatcher("/adminDashboard.jsp");
+			} else {
+				request.setAttribute("User", response.getUser());
+				dispatcher = request.getRequestDispatcher("/userHome.jsp");
+			}
 		} else {
 			request.setAttribute("ErrorLogin", response.getNarration());
 			request.setAttribute("ActiveTab", "login");
