@@ -1,52 +1,54 @@
 /* CSS for Tab Content */
 .tab-content {
-  display: none;
-  text-align: center;
-  margin-top: 20px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+	display: none;
+	text-align: center;
+	margin-top: 20px;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 12px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .tab-content.active-content {
-  display: block;
+	display: block;
 }
 
 .admin-packages-content {
-  display: flex;
-  flex-direction: column;
-  padding: 2% 5%;
+	display: flex;
+	flex-direction: column;
+	padding: 2% 5%;
 }
 
 .tb-buttons {
-  border-radius: 12px;
-  padding: 1%;
-  margin-right: 2%;
-  width: 10%;
+	border-radius: 12px;
+	padding: 1%;
+	margin-right: 2%;
+	width: 10%;
 }
 
 .border-radius {
-  border-radius: 12px;
+	border-radius: 12px;
 }
 
 .tab-buttons {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .tab-buttons button {
-  padding: 10px 20px;
-  border: none;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  font-size: 14px;
+	padding: 10px 20px;
+	border: none;
+	background-color: #f0f0f0;
+	cursor: pointer;
+	font-size: 14px;
+	width: fit-content;
 }
 
 .tab-buttons button.active {
-  background-color: #3498db;
-  color: #fff;
-};
+	background-color: #3498db;
+	color: #fff;
+}
 
+;
