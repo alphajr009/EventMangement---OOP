@@ -20,4 +20,5 @@ public class CommonConsts {
 	public static String TAG_VIEW = "view";
 	public static String TAG_DELETE = "delete";
 	public static String TAG_EDIT = "edit";
+	public static String TAG_PLAN_EVENT = "planEvent";
 }

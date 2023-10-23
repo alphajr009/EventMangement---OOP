@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="com.oop.models.User"%>
+<%@page import="com.oop.models.Event"%>
+<%@page import="com.oop.models.Place"%>
+<%@page import="com.oop.models.Decorator"%>
+<%@page import="com.oop.models.Catering"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page session="true"%>
 <!DOCTYPE html>
 <html>
@@ -8,11 +13,17 @@
 <meta charset="ISO-8859-1">
 <title>EventEaze</title>
 <%@include file="CSS/allcss.jsp"%>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css">
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Bootstrap JS -->
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/devidebegin.css">
 <link rel="stylesheet" href="CSS/userhome.css">
+<link rel="stylesheet" href="CSS/custom.css">
 <style>
 .error-message {
 	color: red;
@@ -26,8 +37,15 @@
 	if (user != null && !user.getName().isBlank()) {
 		session.setAttribute("userSession", user);
 	}
-	%>
 
+	ArrayList<Event> eventList = (ArrayList<Event>) request.getAttribute("eventList");
+	ArrayList<Place> placeList = (ArrayList<Place>) request.getAttribute("placeList");
+	ArrayList<Decorator> decoratorList = (ArrayList<Decorator>) request.getAttribute("decoratorList");
+	ArrayList<Catering> cateringList = (ArrayList<Catering>) request.getAttribute("cateringList");
+	String reload = (String) request.getAttribute("reload");
+	%>
+	<input type="hidden" id="reload" name="reload"
+		value=<%=reload != null ? reload : "true"%> />
 	<div class="devide-begin">
 		<div>
 			<!-- NavBar -->
@@ -58,7 +76,7 @@
 							<li class="nav-item"><a
 								class="nav-link h6 font-wh nav-link-fade-up"
 								href="jsp/common/contact.jsp">Contact Us</a></li>
-							<button class=" btn-nav" id="planEventButton">
+							<button class="btn-nav" id="planEventButton">
 								<i class="fas fa-user"></i> &nbsp; Account
 							</button>
 
@@ -74,28 +92,221 @@
 
 			<div class="admin-packages-content">
 				<div class="tab-buttons">
-					<button id="packagesTab" class="active tb-buttons">
-						<b>Events</b>
-					</button>
-					<button id="createTab" class="tb-buttons">
+					<form action="EventsServlet" method="post">
+						<button id="eventsTab" class="active tb-buttons" name="action"
+							value="view">
+							<b>Events</b>
+						</button>
+					</form>
+					<button id="planEventTab" class="tb-buttons" name="action"
+						value="planEvent">
 						<b>Plan New Event</b>
 					</button>
 				</div>
 
-				<div id="packagesContent" class="tab-content active-content">
+				<div id="eventsContent" class="tab-content active-content">
 					<!-- "Packages" tab -->
 
 					<h3>Events</h3>
+					<div>
+						<table class="styled-table" border="1">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Time</th>
+									<th>Place</th>
+									<th>Decorator</th>
+									<th>Catering</th>
+									<th>Edit</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+								if (eventList != null && !eventList.isEmpty()) {
+									for (Event event : eventList) {
+								%>
+								<tr>
+									<td><%=event.getId()%></td>
+									<td><%=event.getName()%></td>
+									<td><%=event.getTime()%></td>
+									<td><%=event.getPlace()%></td>
+									<td><%=event.getDecorator()%></td>
+									<td><%=event.getCatering()%></td>
+									<td><button class="edit-button" type="button"
+											data-toggle="modal"
+											data-target="#editModalevent<%=event.getId()%>">Edit</button></td>
+
+									<div class="modal fade" id="editModalevent<%=event.getId()%>"
+										tabindex="-1" role="dialog"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Edit
+														Decorator</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<form action="EventsServlet" method="post">
+													<div class="tab-form-field">
+														<label>Event name</label> <input type="text" id="evname"
+															name="newEventname" class="form-control"
+															value="<%=event.getName()%>">
+													</div>
+
+													<div class="tab-form-field">
+														<label>Time</label> <input type="text" id="time"
+															class="form-control" required="required" name="newTime"
+															value="<%= event.getTime() %>">
+													</div>
+
+
+													<div class="tab-form-field">
+														<label>Catering</label> <select name="newCatering"
+															id="newCatering" class="form-control">
+															<option value="default" selected value="<%= event.getCatering()%>"><%= event.getCatering() %></option>
+															<%
+															if (cateringList != null && !cateringList.isEmpty()) {
+																for (Catering catering : cateringList) {
+															%>
+																<option value="<%= catering.getName() %>"><%=catering.getName()%></option>
+															<%
+															}
+															}
+															%>
+														</select>
+													</div>
+
+													<div class="tab-form-field">
+														<label>Decorator</label> <select name="newDecorator"
+															id="newDecorator" class="form-control">
+															<option value="default" selected value="<%= event.getDecorator() %>"><%= event.getDecorator() %></option>
+															<%
+															if (decoratorList != null && !decoratorList.isEmpty()) {
+																for (Decorator decorator : decoratorList) {
+															%>
+																<option value="<%=decorator.getName()%>"><%=decorator.getName()%></option>
+															<%
+															}
+															}
+															%>
+														</select>
+													</div>
+													<div class="tab-form-field">
+														<label>Place</label> <select name="newPlace" id="newPlace"
+															class="form-control">
+															<option value="default" selected value="<%= event.getPlace() %>"><%= event.getPlace() %></option>
+															<%
+															if (placeList != null && !placeList.isEmpty()) {
+																for (Place place : placeList) {
+															%>
+																<option value="<%=place.getName()%>"><%=place.getName()%></option>
+															<%
+															}
+															}
+															%>
+														</select>
+													</div>
+
+													<input type="hidden" name="eventId"
+														value="<%=event.getId()%>">
+													<button type="submit" class="btn btn-primary cretr"
+														id="createPlaces" name="action" value="edit">Save</button>
+												</form>
+											</div>
+										</div>
+									</div>
+
+									<td>
+										<form action="EventsServlet" method="post">
+											<input type="hidden" name="eventId"
+												value="<%=event.getId()%>">
+											<button class="delete-button" name="action" value="delete">Delete</button>
+										</form>
+									</td>
+								</tr>
+								<%
+								}
+								}
+								%>
+							</tbody>
+						</table>
+					</div>
 
 				</div>
 
 
 				<!-- "Create New Package" tab -->
 
-				<div id="createContent" class="tab-content">
+				<div id="newEventContent" class="tab-content">
 
 					<h3>Plan New Event</h3>
 
+					<form action="EventsServlet" method="post">
+						<div class="tab-form-field">
+							<label>Event name</label> <input type="text" id="evname"
+								name="eventname" class="form-control">
+						</div>
+
+						<div class="tab-form-field">
+							<label>Time</label> <input type="text" id="time"
+								class="form-control" required="required" name="time">
+						</div>
+
+
+						<div class="tab-form-field">
+							<label>Catering</label> <select name="catering" id="catering"
+								class="form-control">
+								<%
+								if (cateringList != null && !cateringList.isEmpty()) {
+									for (Catering catering : cateringList) {
+								%>
+								<option value="<%=catering.getName()%>"><%=catering.getName()%></option>
+								<%
+								}
+								}
+								%>
+							</select>
+						</div>
+
+						<div class="tab-form-field">
+							<label>Decorator</label> <select name="decorator" id="decorator"
+								class="form-control">
+								<%
+								if (decoratorList != null && !decoratorList.isEmpty()) {
+									for (Decorator decorator : decoratorList) {
+								%>
+								<option value="<%=decorator.getName()%>"><%=decorator.getName()%></option>
+								<%
+								}
+								}
+								%>
+							</select>
+						</div>
+						<div class="tab-form-field">
+							<label>Place</label> <select name="place" id="place"
+								class="form-control">
+								<%
+								if (placeList != null && !placeList.isEmpty()) {
+									for (Place place : placeList) {
+								%>
+								<option value="<%=place.getName()%>"><%=place.getName()%></option>
+								<%
+								}
+								}
+								%>
+							</select>
+						</div>
+
+
+
+						<button class="btn btn-primary cretr" id="createPlaces"
+							name="action" value="create">Create</button>
+					</form>
 				</div>
 			</div>
 
@@ -210,32 +421,40 @@
 
 
 	</div>
+
 	<script>
 		document.getElementById('planEventButton').addEventListener('click',
 				function() {
 					window.location.href = 'userAccount.jsp';
 				});
 		
-		
 		document.addEventListener("DOMContentLoaded", function () {
-		    const packagesTab = document.getElementById('packagesTab');
-		    const createTab = document.getElementById('createTab');
-		    const packagesContent = document.getElementById('packagesContent');
-		    const createContent = document.getElementById('createContent');
+		    const eventsTab = document.getElementById('eventsTab');
+		    const planEventTab = document.getElementById('planEventTab');
+		    const eventsContent = document.getElementById('eventsContent');
+		    const newEventContent = document.getElementById('newEventContent');
+		    const reload = document.getElementById('reload').value;
+		    const button = document.getElementById('eventsTab');
 
-		    packagesTab.addEventListener('click', () => {
-		        packagesTab.classList.add('active');
-		        createTab.classList.remove('active');
-		        packagesContent.classList.add('active-content');
-		        createContent.classList.remove('active-content');
-		    });
-
-		    createTab.addEventListener('click', () => {
-		        createTab.classList.add('active');
-		        packagesTab.classList.remove('active');
-		        createContent.classList.add('active-content');
-		        packagesContent.classList.remove('active-content');
-		    });
+		    if(reload === "true"){
+		    	button.click();
+		    }
+		    
+		    eventsTab.addEventListener('click', () => {
+			    	eventsTab.classList.add('active');
+			    	planEventTab.classList.remove('active');
+			    	eventsContent.classList.add('active-content');
+			    	newEventContent.classList.remove('active-content');
+			  });
+		    
+			planEventTab.addEventListener('click', () => {
+			    	planEventTab.classList.add('active');
+			        eventsTab.classList.remove('active');
+			        newEventContent.classList.add('active-content');
+			        eventsContent.classList.remove('active-content');
+			});
+			
+			
 		});
 	</script>
 	<script src="js/userprofile.js"></script>
