@@ -18,4 +18,7 @@ public class CommonConsts {
 	public static String LOGIN_ERROR_MSG = "User name or password incorrect";
 	public static String TAG_CREATE = "create";
 	public static String TAG_VIEW = "view";
+	public static String TAG_DELETE = "delete";
+	public static String TAG_EDIT = "edit";
+	public static String TAG_PLAN_EVENT = "planEvent";
 }

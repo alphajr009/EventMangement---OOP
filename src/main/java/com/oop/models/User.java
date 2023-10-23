@@ -6,18 +6,21 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
+	private int isAdmin;
+	
+	public int isAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(int isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 	public int getId() {
 		return id;
 	}
 	
-
-
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-
 	public void setId(int id) {
 		this.id = id;
 	}

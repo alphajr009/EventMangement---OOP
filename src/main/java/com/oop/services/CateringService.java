@@ -35,4 +35,35 @@ public class CateringService {
 		
 		return cateringList;
 	}
+	
+	public boolean editCatering(String newName, String newLocation, float newPrice, int newRating, int cateringId) {
+		boolean status = false;
+		
+		Catering catering = new Catering();
+		catering.setId(cateringId);
+		catering.setName(newName);
+		catering.setLocation(newLocation);
+		catering.setPrice(newPrice);
+		catering.setRating(newRating);
+		
+		int result = cateringDAOImpl.updateCatering(catering);
+		
+		if (result > 0) {
+			status = true;
+		}
+		
+		return status;
+	}
+	
+	public boolean removeCatering(int cateringId) {
+		boolean status = false;
+		
+		int result = cateringDAOImpl.deleteCatering(cateringId);
+		
+		if (result > 0) {
+			status = true;
+		}
+		
+		return status;
+	}
 }

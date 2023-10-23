@@ -14,8 +14,8 @@ public class UserDAOImpl implements UserDAOI{
 
 	private Connection conn;
 	
-	private final String ADD_USER = "insert into users(name,email,password) values(?,?,?)";
-	private final String GET_EXISTING_USER = "select id, name, email, password from users where email = ?";
+	private final String ADD_USER = "insert into users(name,email,password,isAdmin) values(?,?,?,?)";
+	private final String GET_EXISTING_USER = "select id, name, email, password, isAdmin from users where email = ?";
 	private final String UPDATE_USER = "update users set name = ?, email = ? where id = ?";
 	private final String DELETE_USER = "delete from users where id = ?";
 
@@ -33,6 +33,7 @@ public class UserDAOImpl implements UserDAOI{
 			ps.setString(CommonConsts.NUMBER_1, user.getName());
 			ps.setString(CommonConsts.NUMBER_2, user.getEmail());
 			ps.setString(CommonConsts.NUMBER_3, user.getPassword());
+			ps.setInt(CommonConsts.NUMBER_4, 0);
 			
 			int result = ps.executeUpdate();
 			if(result == 1) {
@@ -89,6 +90,7 @@ public class UserDAOImpl implements UserDAOI{
 				user.setName(resultSet.getString("name"));
 				user.setEmail(resultSet.getString("email"));
 				user.setPassword(resultSet.getString("password"));
+				user.setAdmin(resultSet.getInt("isAdmin"));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

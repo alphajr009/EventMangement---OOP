@@ -35,4 +35,35 @@ public class DecorationService {
 		
 		return decoratorList;
 	}
+	
+	public boolean editDecorator(String newName, String newLocation, float newPrice, int newRating, int decoratorId) {
+		boolean status = false;
+		
+		Decorator decorator = new Decorator();
+		decorator.setId(decoratorId);
+		decorator.setName(newName);
+		decorator.setLocation(newLocation);
+		decorator.setPrice(newPrice);
+		decorator.setRating(newRating);
+		
+		int result = decoratorDAOImpl.updateDecorator(decorator);
+		
+		if (result > 0) {
+			status = true;
+		}
+		
+		return status;
+	}
+	
+	public boolean removeDecorator(int decoratorId) {
+		boolean status = false;
+		
+		int result = decoratorDAOImpl.deleteDecorator(decoratorId);
+		
+		if (result > 0) {
+			status = true;
+		}
+		
+		return status;
+	}
 }

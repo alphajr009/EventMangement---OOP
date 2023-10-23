@@ -14,6 +14,8 @@ public class DecoratorDAOImpl implements DecoratorDAOI {
 	
 	private final String ADD_DECORATOR = "insert into decorator(name, location, type, price, rating) values(?,?,?,?,?)";
 	private final String GET_ALL_DECORATORS = "select id, name, location, type, price, rating from decorator";
+	private final String UPDATE_DECORATOR = "update decorator set name = ?, location = ?, price = ?, rating = ? where id = ?";
+	private final String DELETE_DECORATOR = "delete from decorator where id = ?";
 	
 	@Override
 	public int addDecorator(Decorator decorator) {
@@ -60,6 +62,44 @@ public class DecoratorDAOImpl implements DecoratorDAOI {
 			e.printStackTrace();
 		}
 		return decoratorList;
+	}
+
+	@Override
+	public int updateDecorator(Decorator decorator) {
+		int result = 0;
+		
+		try {
+			conn = DBConnector.getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(UPDATE_DECORATOR);
+			ps.setString(CommonConsts.NUMBER_1, decorator.getName());
+			ps.setString(CommonConsts.NUMBER_2, decorator.getLocation());
+			ps.setFloat(CommonConsts.NUMBER_3, decorator.getPrice());
+			ps.setInt(CommonConsts.NUMBER_4, decorator.getRating());
+			ps.setInt(CommonConsts.NUMBER_5, decorator.getId());
+			
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int deleteDecorator(int decoratorId) {
+		int result = 0;
+		
+		try {
+			conn = DBConnector.getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(DELETE_DECORATOR);
+			ps.setInt(CommonConsts.NUMBER_1, decoratorId);
+			
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 }

@@ -1,3 +1,4 @@
+<%@page import="java.io.Console"%>
 <%@page import="com.oop.models.Catering"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.oop.models.Place"%>
@@ -140,7 +141,7 @@
 									<td><%=place.getRating()%></td>
 									<td>
 										<button class="edit-button" type="button" data-toggle="modal"
-											data-target="#editModal<%=place.getId()%>">Edit</button>
+											data-target="#editModal<%=place.getId()%>">Edit</button>	
 									</td>
 
 
@@ -158,47 +159,52 @@
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-
-													<div class="form-group">
-														<label for="newNamePlace">Enter new name:</label> <input
-															type="text" class="form-control" id="newNamePlace"
-															value="<%=place.getName()%>" name="newNamePlace">
+												<form action="PlacesServlet" method="post">
+													<div class="modal-body">
+	
+														<div class="form-group">
+															<label for="newNamePlace">Enter new name:</label> <input
+																type="text" class="form-control" id="newNamePlace"
+																value="<%=place.getName()%>" name="newNamePlace">
+														</div>
+	
+														<div class="form-group">
+															<label for="newLocationPlace">Enter new location:</label>
+															<input type="text" class="form-control"
+																id="newLocationPlace" value="<%=place.getLocation()%>"
+																name="newLocationPlace">
+														</div>
+	
+														<div class="form-group">
+															<label for="newLocationPlace">Enter new price:</label> <input
+																type="text" class="form-control" id="newLocationPlace"
+																value="<%=place.getPrice()%>" name="newPricePlace">
+														</div>
+	
+	
+														<div class="form-group">
+															<label for="newRatingPlace">Enter new rating:</label> <input
+																type="text" class="form-control" id="newRatingPlace"
+																value="<%=place.getRating()%>" name="newRatingPlace">
+														</div>
+														<input type="hidden" name="placeId" value="<%= place.getId() %>">
 													</div>
-
-													<div class="form-group">
-														<label for="newLocationPlace">Enter new location:</label>
-														<input type="text" class="form-control"
-															id="newLocationPlace" value="<%=place.getLocation()%>"
-															name="newLocationPlace">
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Close</button>
+														<button class="btn btn-primary" id="saveNamePlace"  name="action" value="edit">Save changes</button>
 													</div>
-
-													<div class="form-group">
-														<label for="newLocationPlace">Enter new price:</label> <input
-															type="text" class="form-control" id="newLocationPlace"
-															value="<%=place.getPrice()%>" name="newPricePlace">
-													</div>
-
-
-													<div class="form-group">
-														<label for="newRatingPlace">Enter new rating:</label> <input
-															type="text" class="form-control" id="newRatingPlace"
-															value="<%=place.getRating()%>" name="newRatingPlace">
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary"
-														id="saveNamePlace" data-dismiss="modal">Save
-														changes</button>
-												</div>
+												</form>
 											</div>
 										</div>
 									</div>
-
-
-									<td><button class="delete-button">Delete</button></td>
+									
+									<td>
+										<form action="PlacesServlet" method="post">
+											<input type="hidden" name="placeId" value="<%= place.getId() %>">
+											<button class="delete-button" id="deletePlace" name="action" value="delete" placeId="<%= place.getId() %>">Delete</button>
+										</form>
+									</td>				
 								</tr>
 								<%
 								}
@@ -314,7 +320,12 @@
 											data-toggle="modal"
 											data-target="#editModalDeco<%=decorator.getId()%>">Edit</button>
 									</td>
-									<td><button class="delete-button">Delete</button></td>
+									<td>
+										<form action="DecorationsServlet" method="post">
+											<input type="hidden" name="decoId" value="<%= decorator.getId() %>">
+											<button class="delete-button" name="actionDeco" value="delete">Delete</button>
+										</form>
+									</td>
 
 
 									<!-- Modal Edit Decorator-->
@@ -332,41 +343,42 @@
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-
-													<div class="form-group">
-														<label for="newNameDeco">Enter new name:</label> <input
-															type="text" class="form-control" id="newNameDeco"
-															value="<%=decorator.getName()%>" name="newNameDeco">
+												<form action="DecorationsServlet" method="post">
+													<div class="modal-body">
+	
+														<div class="form-group">
+															<label for="newNameDeco">Enter new name:</label> <input
+																type="text" class="form-control" id="newNameDeco"
+																value="<%=decorator.getName()%>" name="newNameDeco">
+														</div>
+	
+														<div class="form-group">
+															<label for="newLocationDeco">Enter new location:</label> <input
+																type="text" class="form-control" id="newLocationDeco"
+																value="<%=decorator.getLocation()%>"
+																name="newLocationDeco">
+														</div>
+	
+														<div class="form-group">
+															<label for="newLocationDeco">Enter new price:</label> <input
+																type="text" class="form-control" id="newPriceDeco"
+																value="<%=decorator.getPrice()%>" name="newPriceDeco">
+														</div>
+	
+	
+														<div class="form-group">
+															<label for="newRatingDeco">Enter new rating:</label> <input
+																type="text" class="form-control" id="newRatingDeco"
+																value="<%=decorator.getRating()%>" name="newRatingDeco">
+														</div>
+														<input type="hidden" name="decoId" value="<%= decorator.getId() %>">
 													</div>
-
-													<div class="form-group">
-														<label for="newLocationDeco">Enter new location:</label> <input
-															type="text" class="form-control" id="newLocationDeco"
-															value="<%=decorator.getLocation()%>"
-															name="newLocationDeco">
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Close</button>
+														<button class="btn btn-primary" id="saveNameDeco"  name="actionDeco" value="edit">Save changes</button>
 													</div>
-
-													<div class="form-group">
-														<label for="newLocationDeco">Enter new price:</label> <input
-															type="text" class="form-control" id="newLocationDeco"
-															value="<%=decorator.getPrice()%>" name="newLocationDeco">
-													</div>
-
-
-													<div class="form-group">
-														<label for="newRatingDeco">Enter new rating:</label> <input
-															type="text" class="form-control" id="newRatingDeco"
-															value="<%=decorator.getRating()%>" name="newRatingDeco">
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary"
-														id="saveNameDeco" data-dismiss="modal">Save
-														changes</button>
-												</div>
+												</form>
 											</div>
 										</div>
 									</div>
@@ -495,7 +507,7 @@
 									</td>
 									
 									
-									<!-- Modal Edit Decorator-->
+									<!-- Modal Edit Catering-->
 									<div class="modal fade"
 										id="editModalDeco<%=catering.getId()%>" tabindex="-1"
 										role="dialog" aria-labelledby="exampleModalLabel"
@@ -510,47 +522,53 @@
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-
-													<div class="form-group">
-														<label for="newNameCater">Enter new name:</label> <input
-															type="text" class="form-control" id="newNameCater"
-															value="<%=catering.getName()%>" name="newNameCater">
+												<form action="CateringServlet" method="post">
+													<div class="modal-body">
+	
+														<div class="form-group">
+															<label for="newNameCater">Enter new name:</label> <input
+																type="text" class="form-control" id="newNameCater"
+																value="<%=catering.getName()%>" name="newNameCater">
+														</div>
+	
+														<div class="form-group">
+															<label for="newLocationCater">Enter new location:</label> <input
+																type="text" class="form-control" id="newLocationCater"
+																value="<%=catering.getLocation()%>"
+																name="newLocationCater">
+														</div>
+	
+														<div class="form-group">
+															<label for="newLocationCater">Enter new price:</label> <input
+																type="text" class="form-control" id="newPriceCater"
+																value="<%=catering.getPrice()%>" name="newPriceCater">
+														</div>
+	
+	
+														<div class="form-group">
+															<label for="newRatingCater">Enter new rating:</label> <input
+																type="text" class="form-control" id="newRatingCater"
+																value="<%=catering.getRating()%>" name="newRatingCater">
+														</div>
+														<input type="hidden" name="cateringId" value="<%= catering.getId() %>">
 													</div>
-
-													<div class="form-group">
-														<label for="newLocationCater">Enter new location:</label> <input
-															type="text" class="form-control" id="newLocationCater"
-															value="<%=catering.getLocation()%>"
-															name="newLocationCater">
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Close</button>
+														<button class="btn btn-primary" id="saveNameCater" name="actionCatering" value="edit">Save changes</button>
 													</div>
-
-													<div class="form-group">
-														<label for="newLocationCater">Enter new price:</label> <input
-															type="text" class="form-control" id="newLocationCater"
-															value="<%=catering.getPrice()%>" name="newLocationCater">
-													</div>
-
-
-													<div class="form-group">
-														<label for="newRatingCater">Enter new rating:</label> <input
-															type="text" class="form-control" id="newRatingCater"
-															value="<%=catering.getRating()%>" name="newRatingCater">
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary"
-														id="saveNameCater" data-dismiss="modal">Save
-														changes</button>
-												</div>
+												</form>
 											</div>
 										</div>
 									</div>
 									
 									
-									<td><button class="delete-button">Delete</button></td>
+									<td>
+										<form action="CateringServlet" method="post">
+											<input type="hidden" name="cateringId" value="<%= catering.getId() %>">
+											<button class="delete-button" name="actionCatering" value="delete">Delete</button>
+										</form>	
+									</td>
 								</tr>
 								<%
 								}
